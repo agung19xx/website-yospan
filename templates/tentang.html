@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Tentang | Tari Yosim Pancar
+    </title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+        <a href="{{ url_for('index') }}"
+           class="brand">
+
+            <img src="{{ url_for('static', filename='images/logo_yospan.png') }}"
+                 alt="Logo Yospan">
+
+            <span>
+                Tari Yosim Pancar
+            </span>
+
+        </a>
+
+
+        <div class="nav-menu">
+
+            <a href="{{ url_for('index') }}">
+                Beranda
+            </a>
+
+            <a href="{{ url_for('tentang') }}"
+               class="active">
+                Tentang
+            </a>
+
+            <a href="{{ url_for('klasifikasi') }}">
+                Klasifikasi
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- HEADER -->
+
+<section class="page-header">
+
+    <div class="container">
+
+        <span class="eyebrow">
+            TENTANG WEBSITE
+        </span>
+
+        <h1>
+            Mengenal Sistem Klasifikasi
+        </h1>
+
+        <p>
+            Media pembelajaran gerakan dasar Tari Yosim Pancar
+            berbasis klasifikasi citra menggunakan CNN MobileNetV2.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- CONTENT -->
+
+<section class="section">
+
+    <div class="container about-content">
+
+
+        <!-- 01 -->
+
+        <article class="about-card">
+
+            <span class="about-number">
+                01
+            </span>
+
+            <div>
+
+                <h2>
+                    Tentang Website
+                </h2>
+
+                <p>
+                    Website ini merupakan media pembelajaran yang
+                    dikembangkan untuk membantu pengguna mengenali
+                    dan mempelajari gerakan dasar Tari Yosim Pancar.
+                    Website memanfaatkan gambar sebagai masukan untuk
+                    melakukan klasifikasi gerakan menggunakan model
+                    Convolutional Neural Network (CNN) berbasis
+                    MobileNetV2.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- 02 -->
+
+        <article class="about-card">
+
+            <span class="about-number">
+                02
+            </span>
+
+            <div>
+
+                <h2>
+                    Tujuan
+                </h2>
+
+                <p>
+                    Website ini bertujuan memberikan media pembelajaran
+                    yang lebih interaktif dalam mengenali gerakan dasar
+                    Tari Yosim Pancar. Melalui sistem klasifikasi citra,
+                    pengguna dapat memperoleh informasi mengenai gerakan
+                    pada gambar yang diunggah berdasarkan kelas gerakan
+                    yang telah dipelajari oleh model.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- 03 -->
+
+        <article class="about-card">
+
+            <span class="about-number">
+                03
+            </span>
+
+            <div>
+
+                <h2>
+                    Cara Kerja Sistem
+                </h2>
+
+                <p>
+                    Pengguna mengunggah gambar yang menampilkan gerakan
+                    Tari Yosim Pancar. Gambar kemudian diproses dan
+                    disesuaikan dengan ukuran masukan model, yaitu
+                    224 × 224 piksel. Selanjutnya, gambar diproses
+                    menggunakan preprocessing MobileNetV2 dan
+                    diteruskan ke model CNN untuk menentukan kelas
+                    gerakan berdasarkan probabilitas hasil prediksi.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- STEPPER -->
+
+        <div class="process-flow">
+
+            <div class="process-step">
+
+                <div class="process-icon">
+                    01
+                </div>
+
+                <h3>
+                    Unggah Gambar
+                </h3>
+
+                <p>
+                    Pilih gambar gerakan tari.
+                </p>
+
+            </div>
+
+
+            <div class="process-line"></div>
+
+
+            <div class="process-step">
+
+                <div class="process-icon">
+                    02
+                </div>
+
+                <h3>
+                    Pemrosesan Gambar
+                </h3>
+
+                <p>
+                    Gambar disesuaikan dengan kebutuhan model.
+                </p>
+
+            </div>
+
+
+            <div class="process-line"></div>
+
+
+            <div class="process-step">
+
+                <div class="process-icon">
+                    03
+                </div>
+
+                <h3>
+                    Klasifikasi Gerakan
+                </h3>
+
+                <p>
+                    Model MobileNetV2 menentukan kelas gerakan.
+                </p>
+
+            </div>
+
+
+            <div class="process-line"></div>
+
+
+            <div class="process-step">
+
+                <div class="process-icon">
+                    04
+                </div>
+
+                <h3>
+                    Pelajari Gerakan
+                </h3>
+
+                <p>
+                    Pelajari langkah gerakannya.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- 04 -->
+
+        <article class="about-card">
+
+            <span class="about-number">
+                04
+            </span>
+
+            <div>
+
+                <h2>
+                    Ruang Lingkup
+                </h2>
+
+                <p>
+                    Website ini secara khusus dikembangkan untuk
+                    klasifikasi gerakan dasar Tari Yosim Pancar.
+                    Kelas gerakan yang dikenali sistem terbatas pada
+                    kelas yang digunakan dalam proses pelatihan model,
+                    yaitu Gale-gale, Jef, Pacul Tiga, Pancar, Seka,
+                    dan bukan Yospan.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- 05 -->
+
+        <article class="about-card">
+
+            <span class="about-number">
+                05
+            </span>
+
+            <div>
+
+                <h2>
+                    Teknologi yang Digunakan
+                </h2>
+
+                <p>
+                    Sistem menggunakan Convolutional Neural Network
+                    (CNN) dengan arsitektur MobileNetV2 sebagai model
+                    klasifikasi citra. Model menggunakan citra berukuran
+                    224 × 224 piksel sebagai masukan dan menghasilkan
+                    prediksi untuk enam kelas, yaitu Bukan Yospan,
+                    Gale-gale, Jef, Pacul Tiga, Pancar, dan Seka.
+                    Model MobileNetV2 menggunakan bobot awal ImageNet
+                    dan dilengkapi dengan Global Average Pooling,
+                    Dropout, serta lapisan Dense untuk melakukan
+                    klasifikasi gerakan.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- NOTICE -->
+
+        <div class="notice-box">
+
+            <div class="notice-icon">
+                !
+            </div>
+
+            <div>
+
+                <h3>
+                    Perhatian
+                </h3>
+
+                <p>
+                    Sistem ini dirancang khusus sebagai media
+                    pembelajaran gerakan dasar Tari Yosim Pancar.
+                    Hasil klasifikasi bergantung pada kualitas,
+                    tampilan, dan kesesuaian gambar dengan data yang
+                    dipelajari oleh model. Sistem melakukan klasifikasi
+                    berdasarkan gambar yang diunggah dan tidak
+                    menggunakan deteksi titik pose tubuh. Gambar dengan
+                    kondisi yang berbeda dari data pelatihan dapat
+                    menghasilkan prediksi yang kurang sesuai.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- TOMBOL NAVIGASI BAWAH -->
+
+<div class="classification-navigation">
+
+    <a href="{{ url_for('index') }}"
+       class="btn-back">
+
+        Kembali ke Beranda
+
+    </a>
+
+    <a href="{{ url_for('klasifikasi') }}"
+       class="btn-reset">
+
+        Klasifikasi Gerakan
+
+    </a>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+    <div class="container">
+
+        <p>
+            © 2026 Tari Yosim Pancar |
+            Klasifikasi Gerakan Berbasis CNN MobileNetV2
+        </p>
+
+    </div>
+
+</footer>
+
+
+</body>
+
+</html>
