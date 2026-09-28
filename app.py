@@ -194,81 +194,43 @@ def preprocess_image(filepath):
 # FUNGSI PREDIKSI
 # ============================================================
 
-def predict_image(filepath):
+def predict_image(image_path):
+    # Load gambar
+    image = load_img(image_path, target_size=(224, 224))
 
-    # --------------------------------------------------------
-    # PREPROCESSING GAMBAR
-    # --------------------------------------------------------
+    # Convert ke array
+    image_array = img_to_array(image)
 
-    image_array = preprocess_image(
-        filepath
-    )
+    # Tambahkan batch dimension
+    image_array = np.expand_dims(image_array, axis=0)
 
-    # --------------------------------------------------------
-    # PREDIKSI MODEL
-    # --------------------------------------------------------
+    # Preprocessing MobileNetV2
+    image_array = preprocess_input(image_array)
 
-    prediction = model.predict(
-        image_array,
-        verbose=0
-    )
+    # Prediksi
+    prediction = model.predict(image_array, verbose=0)
 
-    # --------------------------------------------------------
-    # Pastikan jumlah output model sesuai jumlah label
-    # --------------------------------------------------------
-
+    # Validasi jumlah output model
     if prediction.shape[1] != len(labels):
-
         raise ValueError(
             f"Jumlah output model ({prediction.shape[1]}) "
-            f"tidak sesuai dengan jumlah label ({len(labels)})."
+            f"tidak sama dengan jumlah labels ({len(labels)})"
         )
 
-    # --------------------------------------------------------
-    # Ambil indeks kelas dengan probabilitas tertinggi
-    # --------------------------------------------------------
+    # Ambil index dengan probabilitas tertinggi
+    predicted_index = np.argmax(prediction[0])
 
-    predicted_index = int(
-        np.argmax(prediction[0])
-    )
+    # Ambil label
+    predicted_label = labels[predicted_index]
 
-    # --------------------------------------------------------
-    # Ambil nama label
-    # --------------------------------------------------------
+    # Confidence
+    confidence = float(prediction[0][predicted_index])
 
-    predicted_label = labels[
-        predicted_index
-    ]
+    # Tentukan apakah Yospan
+    is_yospan = predicted_label != "bukan_yospan"
 
-    # --------------------------------------------------------
-    # Ambil confidence
-    # --------------------------------------------------------
-
-    confidence = float(
-        prediction[0][predicted_index]
-    )
-
-    # --------------------------------------------------------
-    # Tentukan apakah hasil merupakan gerakan Yospan
-    # --------------------------------------------------------
-
-    is_yospan = (
-        predicted_label != "bukan_yospan"
-    )
-
-    # --------------------------------------------------------
-    # HASIL
-    # --------------------------------------------------------
-
-    return {
-        "success": True,
-        "status": "success",
-        "label": format_label(
-            predicted_label
-        ),
-        "confidence": confidence,
-        "is_yospan": is_yospan
-    }
+    # WAJIB hanya mengembalikan 3 nilai
+    return predicted_label, confidence, is_yospan
 
 
 # ============================================================
