@@ -328,7 +328,7 @@ def predict():
         return jsonify({
             "success": True,
             "status": "success",
-            "label": predicted_label,
+            "label": format_label(predicted_label),
             "confidence": float(confidence),
             "is_yospan": is_yospan,
             "image": f"data:{mime_type};base64,{image_base64}"
