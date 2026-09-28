@@ -344,7 +344,7 @@ def predict():
             file.save(temp_path)
 
         # Prediksi
-        predicted_label, confidence = predict_image(temp_path)
+        predicted_label, confidence, is_yospan = predict_image(temp_path)
 
         # Baca kembali gambar untuk dikirim ke frontend
         import base64
@@ -368,7 +368,7 @@ def predict():
             "status": "success",
             "label": predicted_label,
             "confidence": float(confidence),
-            "is_yospan": predicted_label != "bukan_yospan",
+            "is_yospan": is_yospan,
             "image": f"data:{mime_type};base64,{image_base64}"
         })
 
