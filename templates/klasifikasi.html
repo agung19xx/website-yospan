@@ -96,18 +96,40 @@
 
               <!-- INPUT UPLOAD -->
 
-              <label for="imageInput" class="upload-area" id="uploadArea">
+              <div class="upload-area" id="uploadArea">
                 <div class="upload-icon">↑</div>
 
-                <strong> Klik untuk memilih gambar </strong>
+                <strong>Pilih sumber gambar</strong>
 
-                <span> Format JPG / PNG </span>
-              </label>
+                <span>Upload dari galeri atau ambil foto langsung</span>
+
+                <div class="upload-options">
+                  <label for="imageInput" class="btn btn-primary">
+                    📁 Pilih dari Galeri
+                  </label>
+
+                  <button
+                    type="button"
+                    id="cameraButton"
+                    class="btn btn-secondary"
+                  >
+                    📷 Ambil Foto
+                  </button>
+                </div>
+              </div>
 
               <input
                 type="file"
                 id="imageInput"
-                accept=".jpg,.jpeg,.png"
+                accept="image/jpeg,image/png"
+                hidden
+              />
+
+              <input
+                type="file"
+                id="cameraInput"
+                accept="image/*"
+                capture="environment"
                 hidden
               />
 

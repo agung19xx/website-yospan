@@ -10,337 +10,258 @@
 // ============================================================
 
 const tutorialData = {
+  "Gale-gale": [
+    {
+      title: "Langkah 1",
 
-    "Gale-gale": [
+      head: "Kepala tegak, pandangan ke depan.",
 
-        {
-            title: "Langkah 1",
+      hands:
+        "Tangan kanan ditekuk dan diangkat di depan dada bagian atas, tangan kiri ditekuk di bawah dagu atau depan dada bawah.",
 
-            head:
-                "Kepala tegak, pandangan ke depan.",
+      body: "Badan tegak, dada terbuka, bahu rileks.",
 
-            hands:
-                "Tangan kanan ditekuk dan diangkat di depan dada bagian atas, tangan kiri ditekuk di bawah dagu atau depan dada bawah.",
+      feet: "Kaki kiri melangkah ke depan, kaki kanan di belakang sebagai tumpuan.",
 
-            body:
-                "Badan tegak, dada terbuka, bahu rileks.",
+      direction: "Gerakan maju serong ke kiri, langkah ringan dan ritmis.",
+    },
 
-            feet:
-                "Kaki kiri melangkah ke depan, kaki kanan di belakang sebagai tumpuan.",
+    {
+      title: "Langkah 2",
 
-            direction:
-                "Gerakan maju serong ke kiri, langkah ringan dan ritmis."
-        },
+      head: "Kepala sedikit menunduk, pandangan ke bawah depan.",
 
-        {
-            title: "Langkah 2",
+      hands:
+        "Kedua tangan ditekuk di depan badan dengan posisi mengepal, siku dekat tubuh.",
 
-            head:
-                "Kepala sedikit menunduk, pandangan ke bawah depan.",
+      body: "Badan condong ke depan, punggung sedikit membungkuk.",
 
-            hands:
-                "Kedua tangan ditekuk di depan badan dengan posisi mengepal, siku dekat tubuh.",
+      feet: "Kaki kanan di depan sebagai tumpuan, kaki kiri terangkat sedikit ke belakang dengan lutut ditekuk.",
 
-            body:
-                "Badan condong ke depan, punggung sedikit membungkuk.",
+      direction: "Gerakan maju dengan perpindahan langkah cepat dan ritmis.",
+    },
+  ],
 
-            feet:
-                "Kaki kanan di depan sebagai tumpuan, kaki kiri terangkat sedikit ke belakang dengan lutut ditekuk.",
+  Jef: [
+    {
+      title: "Langkah 1",
 
-            direction:
-                "Gerakan maju dengan perpindahan langkah cepat dan ritmis."
-        }
+      head: "Kepala sedikit menunduk, pandangan ke bawah depan.",
 
-    ],
+      hands:
+        "Kedua tangan mengepal di samping badan, siku sedikit ditekuk dekat pinggang.",
 
+      body: "Badan condong ke depan mengikuti arah langkah.",
 
-    "Jef": [
+      feet: "Kaki kiri melangkah ke depan, kaki kanan di belakang sebagai tumpuan.",
 
-        {
-            title: "Langkah 1",
+      direction: "Gerakan maju serong ke depan, langkah ringan dan ritmis.",
+    },
 
-            head:
-                "Kepala sedikit menunduk, pandangan ke bawah depan.",
+    {
+      title: "Langkah 2",
 
-            hands:
-                "Kedua tangan mengepal di samping badan, siku sedikit ditekuk dekat pinggang.",
+      head: "Kepala tegak, pandangan ke depan.",
 
-            body:
-                "Badan condong ke depan mengikuti arah langkah.",
+      hands:
+        "Tangan kanan ditekuk di depan dada setinggi bahu, tangan kiri lurus ke bawah.",
 
-            feet:
-                "Kaki kiri melangkah ke depan, kaki kanan di belakang sebagai tumpuan.",
+      body: "Badan tegak, sedikit terbuka ke kiri.",
 
-            direction:
-                "Gerakan maju serong ke depan, langkah ringan dan ritmis."
-        },
+      feet: "Kaki kanan di depan sebagai tumpuan, kaki kiri sedikit di belakang.",
 
-        {
-            title: "Langkah 2",
+      direction: "Gerakan maju ke depan, siap berpindah langkah.",
+    },
 
-            head:
-                "Kepala tegak, pandangan ke depan.",
+    {
+      title: "Langkah 3",
 
-            hands:
-                "Tangan kanan ditekuk di depan dada setinggi bahu, tangan kiri lurus ke bawah.",
+      head: "Kepala menghadap ke samping kanan, pandangan mengikuti arah gerakan.",
 
-            body:
-                "Badan tegak, sedikit terbuka ke kiri.",
+      hands:
+        "Tangan kanan tetap ditekuk di depan dada, tangan kiri lurus ke bawah.",
 
-            feet:
-                "Kaki kanan di depan sebagai tumpuan, kaki kiri sedikit di belakang.",
+      body: "Badan sedikit diputar ke kanan, bahu kanan lebih maju.",
 
-            direction:
-                "Gerakan maju ke depan, siap berpindah langkah."
-        },
+      feet: "Kaki kiri diangkat dengan lutut ditekuk ke depan, kaki kanan sebagai tumpuan utama.",
 
-        {
-            title: "Langkah 3",
+      direction: "Gerakan ke samping kanan dengan langkah terangkat.",
+    },
 
-            head:
-                "Kepala menghadap ke samping kanan, pandangan mengikuti arah gerakan.",
+    {
+      title: "Langkah 4",
 
-            hands:
-                "Tangan kanan tetap ditekuk di depan dada, tangan kiri lurus ke bawah.",
+      head: "Kepala tegak, pandangan ke depan samping kiri.",
 
-            body:
-                "Badan sedikit diputar ke kanan, bahu kanan lebih maju.",
+      hands:
+        "Tangan kanan tetap ditekuk di depan dada, tangan kiri lurus ke bawah dan rileks.",
 
-            feet:
-                "Kaki kiri diangkat dengan lutut ditekuk ke depan, kaki kanan sebagai tumpuan utama.",
+      body: "Badan tegak dan stabil, bahu terbuka.",
 
-            direction:
-                "Gerakan ke samping kanan dengan langkah terangkat."
-        },
+      feet: "Kedua kaki menapak lebih rapat, kaki kiri sedikit di depan.",
 
-        {
-            title: "Langkah 4",
+      direction:
+        "Gerakan kembali maju serong ke kiri dengan tempo stabil dan ritmis.",
+    },
+  ],
 
-            head:
-                "Kepala tegak, pandangan ke depan samping kiri.",
+  "Pacul Tiga": [
+    {
+      title: "Langkah 1",
 
-            hands:
-                "Tangan kanan tetap ditekuk di depan dada, tangan kiri lurus ke bawah dan rileks.",
+      head: "Kepala sedikit menunduk, pandangan ke depan bawah.",
 
-            body:
-                "Badan tegak dan stabil, bahu terbuka.",
+      hands:
+        "Kedua tangan di depan badan, siku sedikit ditekuk, mengarah ke bawah seperti memegang pacul.",
 
-            feet:
-                "Kedua kaki menapak lebih rapat, kaki kiri sedikit di depan.",
+      body: "Badan condong ke depan mengikuti arah tangan.",
 
-            direction:
-                "Gerakan kembali maju serong ke kiri dengan tempo stabil dan ritmis."
-        }
+      feet: "Kaki kanan melangkah ke depan, kaki kiri di belakang sebagai tumpuan.",
 
-    ],
+      direction: "Gerakan maju dengan langkah kecil dan ritmis.",
+    },
 
+    {
+      title: "Langkah 2",
 
-    "Pacul Tiga": [
+      head: "Kepala tegak, pandangan ke depan.",
 
-        {
-            title: "Langkah 1",
+      hands:
+        "Tangan kanan ditekuk dan diangkat di depan dada, tangan kiri lurus ke bawah.",
 
-            head:
-                "Kepala sedikit menunduk, pandangan ke depan bawah.",
+      body: "Badan tegak, sedikit terbuka ke samping kiri.",
 
-            hands:
-                "Kedua tangan di depan badan, siku sedikit ditekuk, mengarah ke bawah seperti memegang pacul.",
+      feet: "Kaki dibuka agak lebar, kaki kanan sebagai tumpuan utama.",
 
-            body:
-                "Badan condong ke depan mengikuti arah tangan.",
+      direction:
+        "Gerakan mengarah serong ke samping kiri, siap berpindah langkah.",
+    },
 
-            feet:
-                "Kaki kanan melangkah ke depan, kaki kiri di belakang sebagai tumpuan.",
+    {
+      title: "Langkah 3",
 
-            direction:
-                "Gerakan maju dengan langkah kecil dan ritmis."
-        },
+      head: "Kepala sedikit menunduk, pandangan ke bawah samping kanan.",
 
-        {
-            title: "Langkah 2",
+      hands:
+        "Tangan kanan tetap ditekuk di depan dada, tangan kiri lurus ke bawah.",
 
-            head:
-                "Kepala tegak, pandangan ke depan.",
+      body: "Badan kembali condong ke depan.",
 
-            hands:
-                "Tangan kanan ditekuk dan diangkat di depan dada, tangan kiri lurus ke bawah.",
+      feet: "Kaki kanan menyilang atau bergerak ke depan, kaki kiri sebagai penyeimbang.",
 
-            body:
-                "Badan tegak, sedikit terbuka ke samping kiri.",
+      direction:
+        "Gerakan serong ke depan dengan langkah menyilang secara ritmis.",
+    },
+  ],
 
-            feet:
-                "Kaki dibuka agak lebar, kaki kanan sebagai tumpuan utama.",
+  Pancar: [
+    {
+      title: "Langkah 1",
 
-            direction:
-                "Gerakan mengarah serong ke samping kiri, siap berpindah langkah."
-        },
+      head: "Kepala menunduk, pandangan ke bawah.",
 
-        {
-            title: "Langkah 3",
+      hands: "Kedua tangan lurus ke bawah di samping paha.",
 
-            head:
-                "Kepala sedikit menunduk, pandangan ke bawah samping kanan.",
+      body: "Badan membungkuk atau condong ke depan.",
 
-            hands:
-                "Tangan kanan tetap ditekuk di depan dada, tangan kiri lurus ke bawah.",
+      feet: "Kedua kaki menapak agak rapat.",
 
-            body:
-                "Badan kembali condong ke depan.",
+      direction: "Arah gerakan condong ke depan.",
+    },
 
-            feet:
-                "Kaki kanan menyilang atau bergerak ke depan, kaki kiri sebagai penyeimbang.",
+    {
+      title: "Langkah 2",
 
-            direction:
-                "Gerakan serong ke depan dengan langkah menyilang secara ritmis."
-        }
+      head: "Kepala tegak, pandangan ke depan.",
 
-    ],
+      hands:
+        "Kedua tangan diangkat ke depan setinggi wajah, telapak tangan menghadap ke depan.",
 
+      body: "Badan tegak.",
 
-    "Pancar": [
+      feet: "Kedua kaki menapak rapat.",
 
-        {
-            title: "Langkah 1",
+      direction: "Kedua tangan bergerak ke depan atau atas.",
+    },
 
-            head:
-                "Kepala menunduk, pandangan ke bawah.",
+    {
+      title: "Langkah 3",
 
-            hands:
-                "Kedua tangan lurus ke bawah di samping paha.",
+      head: "Kepala menoleh ke samping kiri, pandangan mengikuti arah kepala.",
 
-            body:
-                "Badan membungkuk atau condong ke depan.",
+      hands: "Kedua tangan di pinggang, siku mengarah ke samping.",
 
-            feet:
-                "Kedua kaki menapak agak rapat.",
+      body: "Badan tegak, sedikit berputar ke kiri.",
 
-            direction:
-                "Arah gerakan condong ke depan."
-        },
+      feet: "Kaki kiri sedikit menyilang ke depan kaki kanan.",
 
-        {
-            title: "Langkah 2",
+      direction: "Arah gerakan ke samping kiri.",
+    },
 
-            head:
-                "Kepala tegak, pandangan ke depan.",
+    {
+      title: "Langkah 4",
 
-            hands:
-                "Kedua tangan diangkat ke depan setinggi wajah, telapak tangan menghadap ke depan.",
+      head: "Kepala menoleh ke samping kanan, pandangan ke arah kanan.",
 
-            body:
-                "Badan tegak.",
+      hands: "Kedua tangan tetap di pinggang, siku terbuka ke samping.",
 
-            feet:
-                "Kedua kaki menapak rapat.",
+      body: "Badan tegak, sedikit condong atau berputar ke kanan.",
 
-            direction:
-                "Kedua tangan bergerak ke depan atau atas."
-        },
+      feet: "Kaki menyilang, satu kaki di depan kaki lainnya.",
 
-        {
-            title: "Langkah 3",
+      direction: "Arah gerakan ke samping kanan.",
+    },
 
-            head:
-                "Kepala menoleh ke samping kiri, pandangan mengikuti arah kepala.",
+    {
+      title: "Langkah 5",
 
-            hands:
-                "Kedua tangan di pinggang, siku mengarah ke samping.",
+      head: "Kepala sedikit menunduk, pandangan ke bawah depan.",
 
-            body:
-                "Badan tegak, sedikit berputar ke kiri.",
+      hands:
+        "Kedua tangan dirapatkan di depan badan, telapak tangan saling menepuk.",
 
-            feet:
-                "Kaki kiri sedikit menyilang ke depan kaki kanan.",
+      body: "Badan sedikit membungkuk ke depan.",
 
-            direction:
-                "Arah gerakan ke samping kiri."
-        },
+      feet: "Kedua kaki menapak agak rapat.",
 
-        {
-            title: "Langkah 4",
+      direction: "Arah gerakan condong ke depan.",
+    },
+  ],
 
-            head:
-                "Kepala menoleh ke samping kanan, pandangan ke arah kanan.",
+  Seka: [
+    {
+      title: "Langkah 1",
 
-            hands:
-                "Kedua tangan tetap di pinggang, siku terbuka ke samping.",
+      head: "Kepala sedikit menunduk, pandangan ke depan bawah.",
 
-            body:
-                "Badan tegak, sedikit condong atau berputar ke kanan.",
+      hands:
+        "Tangan kanan ditekuk dan dikepalkan di depan dada, tangan kiri lurus ke bawah.",
 
-            feet:
-                "Kaki menyilang, satu kaki di depan kaki lainnya.",
+      body: "Badan sedikit condong ke depan, bahu kanan lebih maju.",
 
-            direction:
-                "Arah gerakan ke samping kanan."
-        },
+      feet: "Kaki kanan sedikit di depan sebagai tumpuan, kaki kiri di belakang atau sejajar sempit dengan lutut ditekuk.",
 
-        {
-            title: "Langkah 5",
+      direction:
+        "Gerakan serong ke depan dengan langkah kecil mengikuti irama.",
+    },
 
-            head:
-                "Kepala sedikit menunduk, pandangan ke bawah depan.",
+    {
+      title: "Langkah 2",
 
-            hands:
-                "Kedua tangan dirapatkan di depan badan, telapak tangan saling menepuk.",
+      head: "Kepala lebih tegak, pandangan ke depan.",
 
-            body:
-                "Badan sedikit membungkuk ke depan.",
+      hands:
+        "Tangan kanan tetap ditekuk di depan dada, tangan kiri lurus ke bawah.",
 
-            feet:
-                "Kedua kaki menapak agak rapat.",
+      body: "Badan tegak, bahu lebih terbuka.",
 
-            direction:
-                "Arah gerakan condong ke depan."
-        }
+      feet: "Kedua kaki tegak, kaki kanan sebagai tumpuan, kaki kiri sedikit terangkat.",
 
-    ],
-
-
-    "Seka": [
-
-        {
-            title: "Langkah 1",
-
-            head:
-                "Kepala sedikit menunduk, pandangan ke depan bawah.",
-
-            hands:
-                "Tangan kanan ditekuk dan dikepalkan di depan dada, tangan kiri lurus ke bawah.",
-
-            body:
-                "Badan sedikit condong ke depan, bahu kanan lebih maju.",
-
-            feet:
-                "Kaki kanan sedikit di depan sebagai tumpuan, kaki kiri di belakang atau sejajar sempit dengan lutut ditekuk.",
-
-            direction:
-                "Gerakan serong ke depan dengan langkah kecil mengikuti irama."
-        },
-
-        {
-            title: "Langkah 2",
-
-            head:
-                "Kepala lebih tegak, pandangan ke depan.",
-
-            hands:
-                "Tangan kanan tetap ditekuk di depan dada, tangan kiri lurus ke bawah.",
-
-            body:
-                "Badan tegak, bahu lebih terbuka.",
-
-            feet:
-                "Kedua kaki tegak, kaki kanan sebagai tumpuan, kaki kiri sedikit terangkat.",
-
-            direction:
-                "Gerakan mengarah ke samping kiri atau serong kiri dengan tempo tetap ritmis."
-        }
-
-    ]
-
+      direction:
+        "Gerakan mengarah ke samping kiri atau serong kiri dengan tempo tetap ritmis.",
+    },
+  ],
 };
-
 
 // ============================================================
 // GAMBAR TUTORIAL
@@ -363,105 +284,113 @@ const tutorialData = {
 // ============================================================
 
 const tutorialImageMap = {
+  "Gale-gale": ["/static/images/Gale_gale.jpeg"],
 
-    "Gale-gale": [
-        "/static/images/Gale_gale.jpeg",
-    ],
+  Jef: ["/static/images/Jef.jpeg"],
 
-    "Jef": [
-        "/static/images/Jef.jpeg",
-    ],
+  "Pacul Tiga": ["/static/images/Pacul_tiga.jpeg"],
 
-    "Pacul Tiga": [
-        "/static/images/Pacul_tiga.jpeg",
-    ],
+  Pancar: ["/static/images/Pancar.jpeg"],
 
-    "Pancar": [
-        "/static/images/Pancar.jpeg",
-    ],
-
-    "Seka": [
-        "/static/images/Seka.jpeg",
-    ]
-
+  Seka: ["/static/images/Seka.jpeg"],
 };
-
 
 // ============================================================
 // ELEMENT
 // ============================================================
 
-const imageInput =
-    document.getElementById("imageInput");
+const imageInput = document.getElementById("imageInput");
 
-const uploadArea =
-    document.getElementById("uploadArea");
+const cameraInput = document.getElementById("cameraInput");
+const cameraButton = document.getElementById("cameraButton");
 
-const previewContainer =
-    document.getElementById("previewContainer");
+const uploadArea = document.getElementById("uploadArea");
 
-const previewImage =
-    document.getElementById("previewImage");
+const previewContainer = document.getElementById("previewContainer");
 
-const removeImage =
-    document.getElementById("removeImage");
+const previewImage = document.getElementById("previewImage");
 
-const classifyButton =
-    document.getElementById("classifyButton");
+const removeImage = document.getElementById("removeImage");
 
-const loading =
-    document.getElementById("loading");
+const classifyButton = document.getElementById("classifyButton");
 
-const resultPlaceholder =
-    document.getElementById("resultPlaceholder");
+const loading = document.getElementById("loading");
 
-const classificationResult =
-    document.getElementById("classificationResult");
+const resultPlaceholder = document.getElementById("resultPlaceholder");
 
-const resultImage =
-    document.getElementById("resultImage");
+const classificationResult = document.getElementById("classificationResult");
 
-const predictionName =
-    document.getElementById("predictionName");
+const resultImage = document.getElementById("resultImage");
 
-const resultSummary =
-    document.getElementById("resultSummary");
+const predictionName = document.getElementById("predictionName");
 
-const learnButton =
-    document.getElementById("learnButton");
+const resultSummary = document.getElementById("resultSummary");
 
-const tutorialSection =
-    document.getElementById("tutorialSection");
+const learnButton = document.getElementById("learnButton");
 
-const tutorialTitle =
-    document.getElementById("tutorialTitle");
+const tutorialSection = document.getElementById("tutorialSection");
 
-const tutorialContent =
-    document.getElementById("tutorialContent");
+const tutorialTitle = document.getElementById("tutorialTitle");
 
-const stepIndicator =
-    document.getElementById("stepIndicator");
+const tutorialContent = document.getElementById("tutorialContent");
 
-const previousStep =
-    document.getElementById("previousStep");
+const stepIndicator = document.getElementById("stepIndicator");
 
-const nextStep =
-    document.getElementById("nextStep");
+const previousStep = document.getElementById("previousStep");
 
-const stepCounter =
-    document.getElementById("stepCounter");
+const nextStep = document.getElementById("nextStep");
 
-const backToResult =
-    document.getElementById("backToResult");
+const stepCounter = document.getElementById("stepCounter");
+
+const backToResult = document.getElementById("backToResult");
 
 /*
    Perbaikan penting:
    sebelumnya classificationArea digunakan tetapi
    belum dideklarasikan.
 */
-const classificationArea =
-    document.getElementById("classificationArea");
+const classificationArea = document.getElementById("classificationArea");
 
+// Camera event
+
+cameraButton.addEventListener("click", () => {
+  cameraInput.click();
+});
+
+cameraInput.addEventListener("change", function () {
+  if (this.files && this.files.length > 0) {
+    const file = this.files[0];
+
+    // Masukkan file kamera ke proses yang sama
+    handleSelectedImage(file);
+  }
+});
+
+function handleSelectedImage(file) {
+  if (!file) return;
+
+  // Validasi tipe file
+  if (!file.type.startsWith("image/")) {
+    alert("File yang dipilih harus berupa gambar.");
+    return;
+  }
+
+  // Simpan file untuk proses klasifikasi
+  selectedFile = file;
+
+  // Preview
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+    previewImage.src = e.target.result;
+    previewContainer.classList.remove("hidden");
+    uploadArea.classList.add("hidden");
+
+    classifyButton.disabled = false;
+  };
+
+  reader.readAsDataURL(file);
+}
 
 // ============================================================
 // VARIABLE
@@ -473,318 +402,212 @@ let currentMovement = null;
 
 let currentStep = 0;
 
-
 // ============================================================
 // NORMALISASI NAMA GERAKAN
 // ============================================================
 
 function normalizeMovementName(label) {
+  if (!label) {
+    return null;
+  }
 
-    if (!label) {
-        return null;
-    }
+  const normalized = label
+    .toString()
+    .trim()
+    .toLowerCase()
+    .replace(/_/g, " ")
+    .replace(/-/g, " ")
+    .replace(/\s+/g, " ");
 
-    const normalized =
-        label
-            .toString()
-            .trim()
-            .toLowerCase()
-            .replace(/_/g, " ")
-            .replace(/-/g, " ")
-            .replace(/\s+/g, " ");
+  const movementMap = {
+    "gale gale": "Gale-gale",
 
+    jef: "Jef",
 
-    const movementMap = {
+    "pacul tiga": "Pacul Tiga",
 
-        "gale gale": "Gale-gale",
+    pancar: "Pancar",
 
-        "jef": "Jef",
+    seka: "Seka",
+  };
 
-        "pacul tiga": "Pacul Tiga",
-
-        "pancar": "Pancar",
-
-        "seka": "Seka"
-
-    };
-
-
-    return movementMap[normalized] || label;
-
+  return movementMap[normalized] || label;
 }
-
 
 // ============================================================
 // PILIH GAMBAR
 // ============================================================
 
 if (imageInput) {
+  //   imageInput.addEventListener("change", function () {
+  //     const file = this.files[0];
 
-    imageInput.addEventListener(
-        "change",
-        function () {
+  //     if (!file) {
+  //       return;
+  //     }
 
-            const file =
-                this.files[0];
+  //     selectedFile = file;
 
-            if (!file) {
-                return;
-            }
+  //     showPreview(file);
+  //   });
 
-            selectedFile = file;
-
-            showPreview(file);
-
-        }
-    );
-
+  imageInput.addEventListener("change", function () {
+    if (this.files && this.files.length > 0) {
+      handleSelectedImage(this.files[0]);
+    }
+  });
 }
 
+cameraInput.addEventListener("change", function () {
+  if (this.files && this.files.length > 0) {
+    handleSelectedImage(this.files[0]);
+  }
+});
 
 // ============================================================
 // PREVIEW GAMBAR
 // ============================================================
 
 function showPreview(file) {
+  const reader = new FileReader();
 
-    const reader =
-        new FileReader();
+  reader.onload = function (event) {
+    if (previewImage) {
+      previewImage.src = event.target.result;
+    }
 
+    if (previewContainer) {
+      previewContainer.classList.remove("hidden");
+    }
 
-    reader.onload =
-        function (event) {
+    if (uploadArea) {
+      uploadArea.classList.add("has-preview");
+    }
 
-            if (previewImage) {
+    if (classifyButton) {
+      classifyButton.disabled = false;
+    }
+  };
 
-                previewImage.src =
-                    event.target.result;
-
-            }
-
-
-            if (previewContainer) {
-
-                previewContainer.classList.remove(
-                    "hidden"
-                );
-
-            }
-
-
-            if (uploadArea) {
-
-                uploadArea.classList.add(
-                    "has-preview"
-                );
-
-            }
-
-
-            if (classifyButton) {
-
-                classifyButton.disabled =
-                    false;
-
-            }
-
-        };
-
-
-    reader.readAsDataURL(file);
-
+  reader.readAsDataURL(file);
 }
-
 
 // ============================================================
 // HAPUS GAMBAR
 // ============================================================
 
 if (removeImage) {
+  removeImage.addEventListener("click", function () {
+    selectedFile = null;
 
-    removeImage.addEventListener(
-        "click",
-        function () {
+    if (imageInput) {
+      imageInput.value = "";
+    }
 
-            selectedFile = null;
+    if (previewImage) {
+      previewImage.src = "";
+    }
 
+    if (previewContainer) {
+      previewContainer.classList.add("hidden");
+    }
 
-            if (imageInput) {
-                imageInput.value = "";
-            }
+    if (uploadArea) {
+      uploadArea.classList.remove("has-preview");
+    }
 
-
-            if (previewImage) {
-                previewImage.src = "";
-            }
-
-
-            if (previewContainer) {
-
-                previewContainer.classList.add(
-                    "hidden"
-                );
-
-            }
-
-
-            if (uploadArea) {
-
-                uploadArea.classList.remove(
-                    "has-preview"
-                );
-
-            }
-
-
-            if (classifyButton) {
-
-                classifyButton.disabled =
-                    true;
-
-            }
-
-        }
-    );
-
+    if (classifyButton) {
+      classifyButton.disabled = true;
+    }
+  });
 }
-
 
 // ============================================================
 // KLASIFIKASI
 // ============================================================
 
 if (classifyButton) {
+  classifyButton.addEventListener("click", async function () {
+    if (!selectedFile) {
+      alert("Silakan pilih gambar terlebih dahulu.");
 
-    classifyButton.addEventListener(
-        "click",
-        async function () {
+      return;
+    }
 
-            if (!selectedFile) {
+    loading.classList.remove("hidden");
 
-                alert(
-                    "Silakan pilih gambar terlebih dahulu."
-                );
+    classifyButton.disabled = true;
 
-                return;
-            }
+    // Sembunyikan tombol Pelajari Gerakan
+    // sampai hasil klasifikasi baru tersedia
+    learnButton.classList.add("hidden");
 
+    currentMovement = null;
 
-            loading.classList.remove(
-                "hidden"
-            );
+    const formData = new FormData();
 
-            classifyButton.disabled =
-                true;
-                
-            // Sembunyikan tombol Pelajari Gerakan
-            // sampai hasil klasifikasi baru tersedia
-            learnButton.classList.add(
-                "hidden"
-            );
+    formData.append("image", selectedFile);
 
-currentMovement = null;
+    try {
+      const response = await fetch("/predict", {
+        method: "POST",
+        body: formData,
+      });
 
-            const formData =
-                new FormData();
+      const data = await response.json();
 
+      if (!data.success) {
+        alert(data.message || "Klasifikasi gagal.");
 
-            formData.append(
-                "image",
-                selectedFile
-            );
+        return;
+      }
 
+      // =================================================
+      // HASIL KLASIFIKASI
+      // =================================================
 
-            try {
+      resultPlaceholder.classList.add("hidden");
 
-                const response =
-                    await fetch(
-                        "/predict",
-                        {
-                            method: "POST",
-                            body: formData
-                        }
-                    );
+      classificationResult.classList.remove("hidden");
 
+      resultImage.src = data.image;
 
-                const data =
-                    await response.json();
+      const formattedMovement = normalizeMovementName(data.label);
 
+      predictionName.textContent = formattedMovement;
 
-                if (!data.success) {
+      // =========================================================
+      // TAMPILKAN TOMBOL "PELAJARI GERAKAN"
+      // HANYA UNTUK KELAS YOSPAN
+      // =========================================================
 
-                    alert(
-                        data.message ||
-                        "Klasifikasi gagal."
-                    );
+      const yospanMovements = [
+        "Gale-gale",
+        "Jef",
+        "Pacul Tiga",
+        "Pancar",
+        "Seka",
+      ];
 
-                    return;
-                }
+      const isYospanMovement = yospanMovements.includes(formattedMovement);
 
+      if (isYospanMovement) {
+        currentMovement = formattedMovement;
 
-            // =================================================
-            // HASIL KLASIFIKASI
-            // =================================================
+        // Tampilkan tombol Pelajari Gerakan
+        learnButton.classList.remove("hidden");
+      } else {
+        currentMovement = null;
 
-                resultPlaceholder.classList.add(
-                    "hidden"
-                );
+        // Sembunyikan tombol untuk bukan_yospan
+        learnButton.classList.add("hidden");
+      }
 
+      // =================================================
+      // HASIL RINGKAS
+      // =================================================
 
-                    classificationResult.classList.remove(
-                        "hidden"
-                    );
-
-                    resultImage.src =
-                        data.image;
-
-
-                    const formattedMovement =
-                        normalizeMovementName(
-                            data.label
-                        );
-
-
-                    predictionName.textContent =
-                        formattedMovement;
-
-
-            // =========================================================
-            // TAMPILKAN TOMBOL "PELAJARI GERAKAN"
-            // HANYA UNTUK KELAS YOSPAN
-            // =========================================================
-
-                    const yospanMovements = [
-                        "Gale-gale",
-                        "Jef",
-                        "Pacul Tiga",
-                        "Pancar",
-                        "Seka"
-                    ];
-
-                    const isYospanMovement = yospanMovements.includes(formattedMovement);
-
-                    if (isYospanMovement) {
-
-                        currentMovement = formattedMovement;
-
-                        // Tampilkan tombol Pelajari Gerakan
-                        learnButton.classList.remove("hidden");
-
-                    } else {
-
-                        currentMovement = null;
-
-                        // Sembunyikan tombol untuk bukan_yospan
-                        learnButton.classList.add("hidden");
-
-                    }
-
-
-                // =================================================
-                // HASIL RINGKAS
-                // =================================================
-
-                resultSummary.innerHTML = `
+      resultSummary.innerHTML = `
 
                     <div class="result-item">
 
@@ -807,166 +630,90 @@ currentMovement = null;
                     </div>
 
                 `;
+    } catch (error) {
+      console.error(error);
 
-            }
+      alert("Terjadi kesalahan saat menghubungkan dengan server.");
+    } finally {
+      loading.classList.add("hidden");
 
-
-            catch (error) {
-
-                console.error(error);
-
-                alert(
-                    "Terjadi kesalahan saat menghubungkan dengan server."
-                );
-
-            }
-
-
-            finally {
-
-                loading.classList.add(
-                    "hidden"
-                );
-
-                classifyButton.disabled =
-                    false;
-
-            }
-
-        }
-    );
-
+      classifyButton.disabled = false;
+    }
+  });
 }
-
 
 // ============================================================
 // TOMBOL PELAJARI GERAKAN
 // ============================================================
 
 if (learnButton) {
+  learnButton.addEventListener("click", function () {
+    if (!currentMovement) {
+      alert("Hasil klasifikasi belum tersedia.");
 
-    learnButton.addEventListener(
-        "click",
-        function () {
+      return;
+    }
 
-            if (!currentMovement) {
+    if (!tutorialData[currentMovement]) {
+      alert("Tutorial untuk gerakan ini belum tersedia.");
 
-                alert(
-                    "Hasil klasifikasi belum tersedia."
-                );
+      return;
+    }
 
-                return;
-            }
+    currentStep = 0;
 
+    classificationArea.classList.add("hidden");
 
-            if (!tutorialData[currentMovement]) {
+    tutorialSection.classList.remove("hidden");
 
-                alert(
-                    "Tutorial untuk gerakan ini belum tersedia."
-                );
+    renderTutorial();
 
-                return;
-            }
-
-
-            currentStep = 0;
-
-
-            classificationArea.classList.add(
-                "hidden"
-            );
-
-
-            tutorialSection.classList.remove(
-                "hidden"
-            );
-
-
-            renderTutorial();
-
-
-            tutorialSection.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-        }
-    );
-
+    tutorialSection.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  });
 }
-
 
 // ============================================================
 // MENAMPILKAN GAMBAR TUTORIAL
 // ============================================================
 
 function renderTutorialImage() {
+  const imageBox = document.getElementById("tutorialImageBox");
 
-    const imageBox =
-        document.getElementById(
-            "tutorialImageBox"
-        );
+  if (!imageBox) {
+    return;
+  }
 
+  const imageCandidates = tutorialImageMap[currentMovement];
 
-    if (!imageBox) {
-        return;
-    }
-
-
-    const imageCandidates =
-        tutorialImageMap[currentMovement];
-
-
-    /*
+  /*
        Jika mapping gambar tidak tersedia,
        langsung tampilkan fallback.
     */
 
-    if (
-        !imageCandidates ||
-        imageCandidates.length === 0
-    ) {
+  if (!imageCandidates || imageCandidates.length === 0) {
+    showTutorialFallback(imageBox);
 
-        showTutorialFallback(
-            imageBox
-        );
+    return;
+  }
 
-        return;
+  let currentCandidate = 0;
+
+  function tryNextImage() {
+    if (currentCandidate >= imageCandidates.length) {
+      showTutorialFallback(imageBox);
+
+      return;
     }
 
+    const image = new Image();
 
-    let currentCandidate = 0;
+    const imagePath = imageCandidates[currentCandidate];
 
-
-    function tryNextImage() {
-
-        if (
-            currentCandidate >=
-            imageCandidates.length
-        ) {
-
-            showTutorialFallback(
-                imageBox
-            );
-
-            return;
-        }
-
-
-        const image =
-            new Image();
-
-
-        const imagePath =
-            imageCandidates[
-                currentCandidate
-            ];
-
-
-        image.onload =
-            function () {
-
-                imageBox.innerHTML = `
+    image.onload = function () {
+      imageBox.innerHTML = `
 
                     <img
                         src="${imagePath}"
@@ -975,38 +722,26 @@ function renderTutorialImage() {
                     >
 
                 `;
+    };
 
-            };
+    image.onerror = function () {
+      currentCandidate++;
 
+      tryNextImage();
+    };
 
-        image.onerror =
-            function () {
+    image.src = imagePath;
+  }
 
-                currentCandidate++;
-
-                tryNextImage();
-
-            };
-
-
-        image.src =
-            imagePath;
-
-    }
-
-
-    tryNextImage();
-
+  tryNextImage();
 }
-
 
 // ============================================================
 // FALLBACK GAMBAR
 // ============================================================
 
 function showTutorialFallback(imageBox) {
-
-    imageBox.innerHTML = `
+  imageBox.innerHTML = `
 
         <div class="tutorial-image-fallback">
 
@@ -1022,89 +757,54 @@ function showTutorialFallback(imageBox) {
         </div>
 
     `;
-
 }
-
 
 // ============================================================
 // RENDER TUTORIAL
 // ============================================================
 
 function renderTutorial() {
+  const steps = tutorialData[currentMovement];
 
-    const steps =
-        tutorialData[currentMovement];
+  if (!steps) {
+    return;
+  }
 
+  const step = steps[currentStep];
 
-    if (!steps) {
-        return;
+  // =========================================================
+  // HEADER
+  // =========================================================
+
+  tutorialTitle.textContent = currentMovement;
+
+  stepCounter.textContent = `Langkah ${currentStep + 1} dari ${steps.length}`;
+
+  // =========================================================
+  // STEP INDICATOR
+  // =========================================================
+
+  stepIndicator.innerHTML = "";
+
+  steps.forEach(function (_, index) {
+    const item = document.createElement("div");
+
+    item.className = "step-dot";
+
+    if (index === currentStep) {
+      item.classList.add("active");
     }
 
+    item.textContent = index + 1;
 
-    const step =
-        steps[currentStep];
+    stepIndicator.appendChild(item);
+  });
 
+  // =========================================================
+  // KONTEN TUTORIAL
+  // =========================================================
 
-    // =========================================================
-    // HEADER
-    // =========================================================
-
-    tutorialTitle.textContent =
-        currentMovement;
-
-
-    stepCounter.textContent =
-        `Langkah ${currentStep + 1} dari ${steps.length}`;
-
-
-    // =========================================================
-    // STEP INDICATOR
-    // =========================================================
-
-    stepIndicator.innerHTML =
-        "";
-
-
-    steps.forEach(
-        function (_, index) {
-
-            const item =
-                document.createElement("div");
-
-
-            item.className =
-                "step-dot";
-
-
-            if (
-                index ===
-                currentStep
-            ) {
-
-                item.classList.add(
-                    "active"
-                );
-
-            }
-
-
-            item.textContent =
-                index + 1;
-
-
-            stepIndicator.appendChild(
-                item
-            );
-
-        }
-    );
-
-
-    // =========================================================
-    // KONTEN TUTORIAL
-    // =========================================================
-
-    tutorialContent.innerHTML = `
+  tutorialContent.innerHTML = `
 
         <div
             class="tutorial-image-placeholder"
@@ -1202,8 +902,7 @@ function renderTutorial() {
 
     `;
 
-
-    /*
+  /*
        Gambar hanya berdasarkan currentMovement.
 
        currentStep TIDAK digunakan untuk memilih gambar.
@@ -1216,132 +915,76 @@ function renderTutorial() {
        dan seterusnya.
     */
 
-    renderTutorialImage();
+  renderTutorialImage();
 
+  // =========================================================
+  // BUTTON SEBELUMNYA
+  // =========================================================
 
-    // =========================================================
-    // BUTTON SEBELUMNYA
-    // =========================================================
+  previousStep.disabled = currentStep === 0;
 
-    previousStep.disabled =
-        currentStep === 0;
+  // =========================================================
+  // BUTTON SELANJUTNYA
+  // =========================================================
 
+  if (currentStep === steps.length - 1) {
+    nextStep.textContent = "Langkah Terakhir";
 
-    // =========================================================
-    // BUTTON SELANJUTNYA
-    // =========================================================
+    nextStep.disabled = true;
+  } else {
+    nextStep.textContent = "Langkah Selanjutnya ";
 
-    if (
-        currentStep ===
-        steps.length - 1
-    ) {
-
-        nextStep.textContent =
-            "Langkah Terakhir";
-
-        nextStep.disabled =
-            true;
-
-    } else {
-
-        nextStep.textContent =
-            "Langkah Selanjutnya ";
-
-        nextStep.disabled =
-            false;
-
-    }
-
+    nextStep.disabled = false;
+  }
 }
-
 
 // ============================================================
 // LANGKAH SEBELUMNYA
 // ============================================================
 
 if (previousStep) {
+  previousStep.addEventListener("click", function () {
+    if (currentStep > 0) {
+      currentStep--;
 
-    previousStep.addEventListener(
-        "click",
-        function () {
-
-            if (currentStep > 0) {
-
-                currentStep--;
-
-                renderTutorial();
-
-            }
-
-        }
-    );
-
+      renderTutorial();
+    }
+  });
 }
-
 
 // ============================================================
 // LANGKAH SELANJUTNYA
 // ============================================================
 
 if (nextStep) {
+  nextStep.addEventListener("click", function () {
+    const steps = tutorialData[currentMovement];
 
-    nextStep.addEventListener(
-        "click",
-        function () {
+    if (!steps) {
+      return;
+    }
 
-            const steps =
-                tutorialData[currentMovement];
+    if (currentStep < steps.length - 1) {
+      currentStep++;
 
-
-            if (!steps) {
-                return;
-            }
-
-
-            if (
-                currentStep <
-                steps.length - 1
-            ) {
-
-                currentStep++;
-
-                renderTutorial();
-
-            }
-
-        }
-    );
-
+      renderTutorial();
+    }
+  });
 }
-
 
 // ============================================================
 // KEMBALI KE HASIL
 // ============================================================
 
 if (backToResult) {
+  backToResult.addEventListener("click", function () {
+    tutorialSection.classList.add("hidden");
 
-    backToResult.addEventListener(
-        "click",
-        function () {
+    classificationArea.classList.remove("hidden");
 
-            tutorialSection.classList.add(
-                "hidden"
-            );
-
-
-            classificationArea.classList.remove(
-                "hidden"
-            );
-
-
-            classificationArea.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
-        }
-    );
-
+    classificationArea.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  });
 }
-
