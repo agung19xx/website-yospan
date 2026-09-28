@@ -313,122 +313,72 @@ def klasifikasi():
 
 @app.route("/predict", methods=["POST"])
 def predict():
-
-    # --------------------------------------------------------
-    # Periksa apakah file dikirim
-    # --------------------------------------------------------
-
-    if "image" not in request.files:
-
-        return jsonify({
-            "success": False,
-            "message": "Gambar belum dipilih."
-        })
-
-    file = request.files["image"]
-
-    # --------------------------------------------------------
-    # Periksa nama file
-    # --------------------------------------------------------
-
-    if file.filename == "":
-
-        return jsonify({
-            "success": False,
-            "message": "Gambar belum dipilih."
-        })
-
-    # --------------------------------------------------------
-    # Amankan nama file
-    # --------------------------------------------------------
-
-    filename = secure_filename(
-        file.filename
-    )
-
-    filepath = os.path.join(
-        app.config["UPLOAD_FOLDER"],
-        filename
-    )
-
-    # --------------------------------------------------------
-    # Simpan gambar
-    # --------------------------------------------------------
-
-    file.save(filepath)
-
     try:
-
-        # ----------------------------------------------------
-        # Jalankan prediksi
-        # ----------------------------------------------------
-
-        result = predict_image(
-            filepath
-        )
-
-        # ----------------------------------------------------
-        # URL gambar
-        # ----------------------------------------------------
-
-        image_url = url_for(
-            "static",
-            filename=f"uploads/{filename}"
-        )
-
-        # ----------------------------------------------------
-        # Jika prediksi gagal
-        # ----------------------------------------------------
-
-        if not result["success"]:
-
+        if "image" not in request.files:
             return jsonify({
-
                 "success": False,
+                "message": "Tidak ada gambar yang diunggah."
+            }), 400
 
-                "status": result["status"],
+        file = request.files["image"]
 
-                "message": result["message"],
+        if file.filename == "":
+            return jsonify({
+                "success": False,
+                "message": "Tidak ada gambar yang dipilih."
+            }), 400
 
-                "image": image_url
+        # Simpan sementara di /tmp karena Vercel hanya mengizinkan
+        # penulisan pada direktori temporary
+        import tempfile
 
-            })
+        suffix = os.path.splitext(file.filename)[1] or ".jpg"
 
-        # ----------------------------------------------------
-        # Jika prediksi berhasil
-        # ----------------------------------------------------
+        with tempfile.NamedTemporaryFile(
+            delete=False,
+            suffix=suffix,
+            dir="/tmp"
+        ) as temp_file:
+
+            temp_path = temp_file.name
+            file.save(temp_path)
+
+        # Prediksi
+        predicted_label, confidence = predict_image(temp_path)
+
+        # Baca kembali gambar untuk dikirim ke frontend
+        import base64
+
+        with open(temp_path, "rb") as image_file:
+            image_base64 = base64.b64encode(
+                image_file.read()
+            ).decode("utf-8")
+
+        # Hapus file sementara
+        try:
+            os.remove(temp_path)
+        except Exception:
+            pass
+
+        # Tentukan MIME type
+        mime_type = file.mimetype or "image/jpeg"
 
         return jsonify({
-
             "success": True,
-
             "status": "success",
-
-            "label": result["label"],
-
-            "confidence": result["confidence"],
-
-            "is_yospan": result["is_yospan"],
-
-            "image": image_url
-
+            "label": predicted_label,
+            "confidence": float(confidence),
+            "is_yospan": predicted_label != "bukan_yospan",
+            "image": f"data:{mime_type};base64,{image_base64}"
         })
 
-    except Exception as error:
-
-        print("==============================================")
-        print("ERROR PREDIKSI")
-        print(error)
-        print("==============================================")
+    except Exception as e:
+        print("ERROR PREDIKSI:", str(e))
 
         return jsonify({
-
             "success": False,
-
-            "message":
-                "Terjadi kesalahan saat melakukan klasifikasi."
-
-        })
+            "message": str(e)
+        }), 500
 
 
 # ============================================================
