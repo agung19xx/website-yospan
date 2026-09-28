@@ -1,517 +1,324 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>
-        Tari Yosim Pancar | Beranda
-    </title>
+    <title>Tari Yosim Pancar | Beranda</title>
 
     <!-- Google Font -->
-    <link rel="preconnect"x
-          href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-          rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- CSS -->
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
 
-</head>
-
-
-<body>
-
-
-<!-- =========================================================
+  <body>
+    <!-- =========================================================
      NAVBAR
 ========================================================= -->
 
-<nav class="navbar">
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="{{ url_for('index') }}" class="brand">
+          <img
+            src="{{ url_for('static', filename='images/logo_yospan.png') }}"
+            alt="Logo Yospan"
+          />
 
-    <div class="nav-container">
-
-        <a href="{{ url_for('index') }}"
-           class="brand">
-
-            <img src="{{ url_for('static', filename='images/logo_yospan.png') }}"
-                 alt="Logo Yospan">
-
-            <span>
-                Tari Yosim Pancar
-            </span>
-
+          <span> Tari Yosim Pancar </span>
         </a>
 
-
         <div class="nav-menu">
+          <a href="{{ url_for('index') }}" class="active"> Beranda </a>
 
-            <a href="{{ url_for('index') }}"
-               class="active">
-                Beranda
-            </a>
+          <a href="{{ url_for('tentang') }}"> Tentang </a>
 
-            <a href="{{ url_for('tentang') }}">
-                Tentang
-            </a>
-
-            <a href="{{ url_for('klasifikasi') }}">
-                Klasifikasi
-            </a>
-
+          <a href="{{ url_for('klasifikasi') }}"> Klasifikasi </a>
         </div>
+      </div>
+    </nav>
 
-    </div>
-
-</nav>
-
-
-<!-- =========================================================
+    <!-- =========================================================
      HERO
 ========================================================= -->
 
-<section class="hero">
-
-    <div class="container hero-grid">
-
-
+    <section class="hero">
+      <div class="container hero-grid">
         <!-- TEKS -->
 
         <div class="hero-content">
+          <span class="eyebrow"> BUDAYA PAPUA </span>
 
-            <span class="eyebrow">
-                BUDAYA PAPUA
-            </span>
+          <h1>Tari Yosim Pancar</h1>
 
-            <h1>
-                Tari Yosim Pancar
-            </h1>
+          <h2>Tari Pergaulan dan Persahabatan dari Papua</h2>
 
-            <h2>
-                Tari Pergaulan dan Persahabatan dari Papua
-            </h2>
+          <p>
+            Yosim Pancar atau Yospan merupakan tari pergaulan khas Papua yang
+            menggambarkan semangat kebersamaan, persahabatan, keceriaan, dan
+            kekompakan.
+          </p>
 
-            <p>
-                Yosim Pancar atau Yospan merupakan tari pergaulan
-                khas Papua yang menggambarkan semangat kebersamaan,
-                persahabatan, keceriaan, dan kekompakan.
-            </p>
+          <div class="hero-buttons">
+            <a href="{{ url_for('klasifikasi') }}" class="btn btn-primary">
+              Mulai Klasifikasi
+            </a>
 
-
-            <div class="hero-buttons">
-
-                <a href="{{ url_for('klasifikasi') }}"
-                   class="btn btn-primary">
-
-                    Mulai Klasifikasi
-
-                </a>
-
-
-                <a href="#sejarah"
-                   class="btn btn-secondary">
-
-                    Pelajari Yospan
-
-                </a>
-
-            </div>
-
+            <a href="#sejarah" class="btn btn-secondary"> Pelajari Yospan </a>
+          </div>
         </div>
-
 
         <!-- FOTO YOSPAN -->
 
         <div class="hero-image">
-
-            <img src="{{ url_for('static', filename='images/Navbar_Yospan.png') }}"
-                 alt="Tari Yosim Pancar"
-                 class="hero-photo">
-
+          <img
+            src="{{ url_for('static', filename='images/Navbar_Yospan.png') }}"
+            alt="Tari Yosim Pancar"
+            class="hero-photo"
+          />
         </div>
+      </div>
+    </section>
 
-    </div>
-
-</section>
-
-
-<!-- ================================
+    <!-- ================================
      SEJARAH SINGKAT
 ================================ -->
-<section class="section" id="sejarah">
-  <div class="container">
+    <section class="section" id="sejarah">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">SEJARAH SINGKAT</span>
+          <h2>Mengenal Yosim Pancar & Sanggar Seni BilasTari</h2>
+        </div>
 
-    <div class="section-heading">
-      <span class="eyebrow">SEJARAH SINGKAT</span>
-      <h2>Mengenal Yosim Pancar & Sanggar Seni BilasTari</h2>
-    </div>
-
-
-    <!-- =================================
+        <!-- =================================
          BAGIAN TENTANG TARI YOSPAN
     ================================== -->
-    <div class="yospan-history-box">
+        <div class="yospan-history-box">
+          <div class="yospan-history-content">
+            <span class="history-label"> TENTANG TARI YOSIM PANCAR </span>
 
-      <div class="yospan-history-content">
+            <h3>Yosim Pancar</h3>
 
-        <span class="history-label">
-          TENTANG TARI YOSIM PANCAR
-        </span>
+            <p>
+              Yosim dikenal sebagai tari pergaulan yang berkembang di wilayah
+              pesisir Papua dan sering dikaitkan dengan kawasan Teluk Saireri.
+              Tari ini berkembang sebagai bentuk interaksi sosial dan
+              kebersamaan masyarakat melalui gerakan tari.
+            </p>
 
-        <h3>Yosim Pancar</h3>
+            <p>
+              Pancar berkembang di wilayah Biak Numfor dan Manokwari pada awal
+              tahun 1960-an. Gerakannya terinspirasi dari gerakan akrobatik
+              pesawat jet dan pada awalnya dikenal sebagai Pancar Gas.
+            </p>
 
-        <p>
-          Yosim dikenal sebagai tari pergaulan yang berkembang
-          di wilayah pesisir Papua dan sering dikaitkan dengan
-          kawasan Teluk Saireri. Tari ini berkembang sebagai
-          bentuk interaksi sosial dan kebersamaan masyarakat
-          melalui gerakan tari.
-        </p>
+            <p>
+              Perpaduan antara Yosim dan Pancar kemudian membentuk Yosim Pancar
+              atau yang lebih dikenal sebagai Yospan. Yospan berkembang sebagai
+              salah satu tari pergaulan dan seni pertunjukan yang dikenal di
+              Papua.
+            </p>
+          </div>
+        </div>
 
-        <p>
-          Pancar berkembang di wilayah Biak Numfor dan Manokwari
-          pada awal tahun 1960-an. Gerakannya terinspirasi dari
-          gerakan akrobatik pesawat jet dan pada awalnya dikenal
-          sebagai Pancar Gas.
-        </p>
-
-        <p>
-          Perpaduan antara Yosim dan Pancar kemudian membentuk
-          Yosim Pancar atau yang lebih dikenal sebagai Yospan.
-          Yospan berkembang sebagai salah satu tari pergaulan
-          dan seni pertunjukan yang dikenal di Papua.
-        </p>
-
-      </div>
-
-    </div>
-
-
-    <!-- =================================
+        <!-- =================================
          BAGIAN SANGGAR
     ================================== -->
-    <div class="sanggar-history-box">
+        <div class="sanggar-history-box">
+          <div class="sanggar-history-content">
+            <span class="history-label"> TENTANG SANGGAR </span>
 
-      <div class="sanggar-history-content">
+            <h3>SANGGAR SENI BILASTARI</h3>
 
-        <span class="history-label">
-          TENTANG SANGGAR
-        </span>
+            <p>
+              Sanggar Seni Billastari merupakan sanggar seni yang berdiri sejak
+              tahun 1980-an dan kembali aktif pada tahun 2015 melalui peran
+              generasi muda dalam melestarikan serta mengembangkan seni budaya
+              di era modern. Sanggar ini mengembangkan berbagai jenis tari,
+              termasuk Yosim Pancar (Yospan), tari tradisional, tari kreasi, dan
+              modern dance. Yospan merupakan tarian pergaulan tradisional Papua
+              yang merepresentasikan persahabatan, persaudaraan, dan
+              kegembiraan.
+            </p>
 
-        <h3>SANGGAR SENI BILASTARI</h3>
+            <!-- ALAMAT -->
+            <div class="sanggar-address">
+              <span>ALAMAT SANGGAR</span>
 
-        <p>
-          Sanggar Seni Billastari merupakan sanggar seni yang berdiri sejak tahun 1980-an dan kembali aktif pada tahun 2015 melalui peran generasi muda dalam melestarikan serta mengembangkan seni budaya di era modern. Sanggar ini mengembangkan berbagai jenis tari, termasuk Yosim Pancar (Yospan), tari tradisional, tari kreasi, dan modern dance. Yospan merupakan tarian pergaulan tradisional Papua yang merepresentasikan persahabatan, persaudaraan, dan kegembiraan.
-        </p>
+              <p>
+                Lorong Mandiri, Remu Selatan, Kecamatan Sorong Manoi, Kota
+                Sorong, Papua Barat Daya 98412
+              </p>
+            </div>
 
+            <!-- GOOGLE MAPS -->
+            <a
+              href="https://maps.app.goo.gl/GfaDr9UaaX8uRPtd9?g_st=aw"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="maps-button"
+            >
+              Lihat Lokasi di Google Maps
+            </a>
+          </div>
 
-        <!-- ALAMAT -->
-        <div class="sanggar-address">
-
-          <span>ALAMAT SANGGAR</span>
-
-          <p>
-            Lorong Mandiri, Remu Selatan, Kecamatan Sorong Manoi,
-            Kota Sorong, Papua Barat Daya 98412
-          </p>
-
-        </div>
-
-
-        <!-- GOOGLE MAPS -->
-        <a
-          href="https://maps.app.goo.gl/GfaDr9UaaX8uRPtd9?g_st=aw"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="maps-button"
-        >
-          Lihat Lokasi di Google Maps
-        </a>
-
-      </div>
-
-
-      <!-- =================================
+          <!-- =================================
            DOKUMENTASI SANGGAR
       ================================== -->
-        <div class="documentation-card">
-          <img
-            src="{{ url_for('static', filename='images/Dokumentasi-wawancara-2.jpeg') }}"
-            alt="Dokumentasi bersama Sanggar Seni Nani Bili"
-          >
+          <div class="documentation-card">
+            <img
+              src="{{ url_for('static', filename='images/Dokumentasi-wawancara-2.jpeg') }}"
+              alt="Dokumentasi bersama Sanggar Seni Nani Bili"
+            />
+          </div>
         </div>
-
       </div>
+    </section>
 
-    </div>
-
-  </div>
-</section>
-
-
-<!-- =========================================================
+    <!-- =========================================================
      GERAKAN DASAR
 ========================================================= -->
 
-<section class="section section-light">
-
-    <div class="container">
-
-
+    <section class="section section-light">
+      <div class="container">
         <div class="section-heading">
+          <span class="eyebrow"> GERAKAN DASAR </span>
 
-            <span class="eyebrow">
-                GERAKAN DASAR
-            </span>
+          <h2>Tarian Yosim Pancar</h2>
 
-            <h2>
-                Tarian Yosim Pancar
-            </h2>
-
-            <p>
-                Kenali beberapa gerakan dasar yang digunakan
-                dalam penelitian ini.
-            </p>
-
+          <p>
+            Kenali beberapa gerakan dasar yang digunakan dalam penelitian ini.
+          </p>
         </div>
-
 
         <div class="movement-grid">
+          <!-- 01 SEKA -->
 
+          <div class="movement-card">
+            <span class="movement-number"> 01 </span>
 
-            <!-- 01 SEKA -->
+            <h3>Seka</h3>
 
-            <div class="movement-card">
+            <p>Gerakan langkah ritmis dan lincah.</p>
+          </div>
 
-                <span class="movement-number">
-                    01
-                </span>
+          <!-- 02 PACUL TIGA -->
 
-                <h3>
-                    Seka
-                </h3>
+          <div class="movement-card">
+            <span class="movement-number"> 02 </span>
 
-                <p>
-                    Gerakan langkah ritmis dan lincah.
-                </p>
+            <h3>Pacul Tiga</h3>
 
-            </div>
+            <p>Gerakan tiga langkah dengan perpindahan arah.</p>
+          </div>
 
+          <!-- 03 GALE-GALE -->
 
-            <!-- 02 PACUL TIGA -->
+          <div class="movement-card">
+            <span class="movement-number"> 03 </span>
 
-            <div class="movement-card">
+            <h3>Gale-gale</h3>
 
-                <span class="movement-number">
-                    02
-                </span>
+            <p>Gerakan melangkah maju secara berirama.</p>
+          </div>
 
-                <h3>
-                    Pacul Tiga
-                </h3>
+          <!-- 04 JEF -->
 
-                <p>
-                    Gerakan tiga langkah dengan perpindahan arah.
-                </p>
+          <div class="movement-card">
+            <span class="movement-number"> 04 </span>
 
-            </div>
+            <h3>Jef</h3>
 
+            <p>Gerakan dinamis dengan variasi langkah.</p>
+          </div>
 
-            <!-- 03 GALE-GALE -->
+          <!-- 05 PANCAR -->
 
-            <div class="movement-card">
+          <div class="movement-card">
+            <span class="movement-number"> 05 </span>
 
-                <span class="movement-number">
-                    03
-                </span>
+            <h3>Pancar</h3>
 
-                <h3>
-                    Gale-gale
-                </h3>
+            <p>Gerakan tegas, energik, dan dinamis.</p>
+          </div>
 
-                <p>
-                    Gerakan melangkah maju secara berirama.
-                </p>
+          <!-- 06 YOSIM & BALENGAN -->
 
-            </div>
+          <div class="movement-card">
+            <span class="movement-number"> 06 </span>
 
+            <h3>Yosim &amp; Balengan</h3>
 
-            <!-- 04 JEF -->
-
-            <div class="movement-card">
-
-                <span class="movement-number">
-                    04
-                </span>
-
-                <h3>
-                    Jef
-                </h3>
-
-                <p>
-                    Gerakan dinamis dengan variasi langkah.
-                </p>
-
-            </div>
-
-
-            <!-- 05 PANCAR -->
-
-            <div class="movement-card">
-
-                <span class="movement-number">
-                    05
-                </span>
-
-                <h3>
-                    Pancar
-                </h3>
-
-                <p>
-                    Gerakan tegas, energik, dan dinamis.
-                </p>
-
-            </div>
-
-
-            <!-- 06 YOSIM & BALENGAN -->
-
-            <div class="movement-card">
-
-                <span class="movement-number">
-                    06
-                </span>
-
-                <h3>
-                    Yosim &amp; Balengan
-                </h3>
-
-                <p>
-                    Gerakan penghubung antar-ragam gerak.
-                </p>
-
-            </div>
-
+            <p>Gerakan penghubung antar-ragam gerak.</p>
+          </div>
         </div>
+      </div>
+    </section>
 
-    </div>
-
-</section>
-
-
-<!-- =========================================================
+    <!-- =========================================================
      CIRI KHAS
 ========================================================= -->
 
-<section class="section">
-
-    <div class="container">
-
-
+    <section class="section">
+      <div class="container">
         <div class="section-heading">
+          <span class="eyebrow"> CIRI KHAS </span>
 
-            <span class="eyebrow">
-                CIRI KHAS
-            </span>
-
-            <h2>
-                Tari Yosim Pancar
-            </h2>
-
+          <h2>Tari Yosim Pancar</h2>
         </div>
-
 
         <div class="feature-list">
+          <div class="feature-item">
+            <span> 01 </span>
 
+            <p>
+              Dilakukan secara berkelompok dengan gerakan dinamis dan energik.
+            </p>
+          </div>
 
-            <div class="feature-item">
+          <div class="feature-item">
+            <span> 02 </span>
 
-                <span>
-                    01
-                </span>
+            <p>Mengutamakan kekompakan dan kebersamaan.</p>
+          </div>
 
-                <p>
-                    Dilakukan secara berkelompok dengan gerakan
-                    dinamis dan energik.
-                </p>
+          <div class="feature-item">
+            <span> 03 </span>
 
-            </div>
+            <p>Diiringi gitar, ukulele atau juk, tifa, dan bass akustik.</p>
+          </div>
 
+          <div class="feature-item">
+            <span> 04 </span>
 
-            <div class="feature-item">
-
-                <span>
-                    02
-                </span>
-
-                <p>
-                    Mengutamakan kekompakan dan kebersamaan.
-                </p>
-
-            </div>
-
-
-            <div class="feature-item">
-
-                <span>
-                    03
-                </span>
-
-                <p>
-                    Diiringi gitar, ukulele atau juk, tifa,
-                    dan bass akustik.
-                </p>
-
-            </div>
-
-
-            <div class="feature-item">
-
-                <span>
-                    04
-                </span>
-
-                <p>
-                    Mencerminkan persahabatan, kegembiraan,
-                    dan semangat masyarakat Papua.
-                </p>
-
-            </div>
-
+            <p>
+              Mencerminkan persahabatan, kegembiraan, dan semangat masyarakat
+              Papua.
+            </p>
+          </div>
         </div>
+      </div>
+    </section>
 
-    </div>
-
-</section>
-
-
-<!-- =========================================================
+    <!-- =========================================================
      FOOTER
 ========================================================= -->
 
-<footer class="footer">
-
-    <div class="container">
-
-        <p>
-            © 2026 Tari Yosim Pancar |
-            Klasifikasi Gerakan Menggunakan CNN
-        </p>
-
-    </div>
-
-</footer>
-
-
-</body>
+    <footer class="footer">
+      <div class="container">
+        <p>© 2026 Tari Yosim Pancar | Klasifikasi Gerakan Menggunakan CNN</p>
+      </div>
+    </footer>
+  </body>
 </html>

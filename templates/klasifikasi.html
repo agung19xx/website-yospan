@@ -1,476 +1,281 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta charset="UTF-8">
+    <title>Klasifikasi | Tari Yosim Pancar</title>
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
 
-    <title>
-        Klasifikasi | Tari Yosim Pancar
-    </title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <link rel="preconnect"
-          href="https://fonts.googleapis.com">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-          rel="stylesheet">
-
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
-
-</head>
-
-
-<body>
-
-
-<!-- =========================================================
+  <body>
+    <!-- =========================================================
      NAVBAR
 ========================================================= -->
 
-<nav class="navbar">
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="{{ url_for('index') }}" class="brand">
+          <img
+            src="{{ url_for('static', filename='images/logo_yospan.png') }}"
+            alt="Logo Yospan"
+          />
 
-    <div class="nav-container">
-
-        <a href="{{ url_for('index') }}"
-           class="brand">
-
-            <img src="{{ url_for('static', filename='images/logo_yospan.png') }}"
-                 alt="Logo Yospan">
-
-            <span>
-                Tari Yosim Pancar
-            </span>
-
+          <span> Tari Yosim Pancar </span>
         </a>
 
-
         <div class="nav-menu">
+          <a href="{{ url_for('index') }}"> Beranda </a>
 
-            <a href="{{ url_for('index') }}">
-                Beranda
-            </a>
+          <a href="{{ url_for('tentang') }}"> Tentang </a>
 
-            <a href="{{ url_for('tentang') }}">
-                Tentang
-            </a>
-
-            <a href="{{ url_for('klasifikasi') }}"
-               class="active">
-                Klasifikasi
-            </a>
-
+          <a href="{{ url_for('klasifikasi') }}" class="active">
+            Klasifikasi
+          </a>
         </div>
+      </div>
+    </nav>
 
-    </div>
-
-</nav>
-
-
-<!-- =========================================================
+    <!-- =========================================================
      HEADER
 ========================================================= -->
 
-<section class="page-header">
+    <section class="page-header">
+      <div class="container">
+        <span class="eyebrow"> KLASIFIKASI GERAKAN </span>
 
-    <div class="container">
-
-        <span class="eyebrow">
-            KLASIFIKASI GERAKAN
-        </span>
-
-        <h1>
-            Kenali Gerakan Tari Yosim Pancar
-        </h1>
+        <h1>Kenali Gerakan Tari Yosim Pancar</h1>
 
         <p>
-            Unggah gambar gerakan untuk mengetahui hasil
-            klasifikasi berdasarkan fitur pose tubuh.
+          Unggah gambar gerakan untuk mengetahui hasil klasifikasi berdasarkan
+          fitur pose tubuh.
         </p>
+      </div>
+    </section>
 
-    </div>
-
-</section>
-
-
-<!-- =========================================================
+    <!-- =========================================================
      CLASSIFICATION AREA
 ========================================================= -->
 
-<section class="section">
-
-    <div class="container">
-
-
+    <section class="section">
+      <div class="container">
         <!-- AREA KLASIFIKASI -->
 
-        <div id="classificationArea"
-             class="classification-grid">
-
-
-            <!-- =================================================
+        <div id="classificationArea" class="classification-grid">
+          <!-- =================================================
                  KOLOM KIRI
             ================================================== -->
 
-            <div class="classification-left">
+          <div class="classification-left">
+            <!-- UPLOAD -->
 
+            <div class="upload-card">
+              <div class="card-title">
+                <span class="small-icon"> ↑ </span>
 
-                <!-- UPLOAD -->
+                <div>
+                  <h2>Upload Gambar</h2>
 
-                <div class="upload-card">
-
-                    <div class="card-title">
-
-                        <span class="small-icon">
-                            ↑
-                        </span>
-
-                        <div>
-
-                            <h2>
-                                Upload Gambar
-                            </h2>
-
-                            <p>
-                                Pilih gambar gerakan Tari Yosim Pancar
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- INPUT UPLOAD -->
-
-                    <label for="imageInput"
-                           class="upload-area"
-                           id="uploadArea">
-
-                        <div class="upload-icon">
-                            ↑
-                        </div>
-
-                        <strong>
-                            Klik untuk memilih gambar
-                        </strong>
-
-                        <span>
-                            Format JPG / PNG
-                        </span>
-
-                    </label>
-
-
-                    <input type="file"
-                           id="imageInput"
-                           accept=".jpg,.jpeg,.png"
-                           hidden>
-
-
-                    <!-- PREVIEW -->
-
-                    <div id="previewContainer"
-                         class="preview-container hidden">
-
-                        <img id="previewImage"
-                             src=""
-                             alt="Preview gambar">
-
-                        <button type="button"
-                                id="removeImage"
-                                class="remove-image">
-
-                            × Hapus gambar
-
-                        </button>
-
-                    </div>
-
-
-                    <!-- KLASIFIKASI -->
-
-                    <button type="button"
-                            id="classifyButton"
-                            class="btn btn-primary btn-full"
-                            disabled>
-
-                        Klasifikasi Gambar
-
-                    </button>
-
-
-                    <!-- LOADING -->
-
-                    <div id="loading"
-                         class="loading hidden">
-
-                        <div class="spinner"></div>
-
-                        <span>
-                            Memproses gambar...
-                        </span>
-
-                    </div>
-
+                  <p>Pilih gambar gerakan Tari Yosim Pancar</p>
                 </div>
+              </div>
 
+              <!-- INPUT UPLOAD -->
 
-                <!-- HASIL RINGKAS -->
+              <label for="imageInput" class="upload-area" id="uploadArea">
+                <div class="upload-icon">↑</div>
 
-                <div class="result-list-card">
+                <strong> Klik untuk memilih gambar </strong>
 
-                    <div class="card-title">
+                <span> Format JPG / PNG </span>
+              </label>
 
-                        <span class="small-icon">
-                            ✓
-                        </span>
+              <input
+                type="file"
+                id="imageInput"
+                accept=".jpg,.jpeg,.png"
+                hidden
+              />
 
-                        <div>
+              <!-- PREVIEW -->
 
-                            <h2>
-                                Hasil Klasifikasi
-                            </h2>
+              <div id="previewContainer" class="preview-container hidden">
+                <img id="previewImage" src="" alt="Preview gambar" />
 
-                            <p>
-                                Hasil gerakan akan ditampilkan di sini
-                            </p>
+                <button type="button" id="removeImage" class="remove-image">
+                  × Hapus gambar
+                </button>
+              </div>
 
-                        </div>
+              <!-- KLASIFIKASI -->
 
-                    </div>
+              <button
+                type="button"
+                id="classifyButton"
+                class="btn btn-primary btn-full"
+                disabled
+              >
+                Klasifikasi Gambar
+              </button>
 
+              <!-- LOADING -->
 
-                    <div id="resultSummary"
-                         class="result-summary">
+              <div id="loading" class="loading hidden">
+                <div class="spinner"></div>
 
-                        <div class="empty-result">
-
-                            <span>
-                                •
-                            </span>
-
-                            <p>
-                                Belum ada hasil klasifikasi.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
+                <span> Memproses gambar... </span>
+              </div>
             </div>
 
+            <!-- HASIL RINGKAS -->
 
-            <!-- =================================================
+            <div class="result-list-card">
+              <div class="card-title">
+                <span class="small-icon"> ✓ </span>
+
+                <div>
+                  <h2>Hasil Klasifikasi</h2>
+
+                  <p>Hasil gerakan akan ditampilkan di sini</p>
+                </div>
+              </div>
+
+              <div id="resultSummary" class="result-summary">
+                <div class="empty-result">
+                  <span> • </span>
+
+                  <p>Belum ada hasil klasifikasi.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- =================================================
                  KOLOM HASIL
             ================================================== -->
 
-            <div class="result-card">
+          <div class="result-card">
+            <!-- PLACEHOLDER -->
 
+            <div id="resultPlaceholder" class="result-placeholder">
+              <div class="result-image-icon">▧</div>
 
-                <!-- PLACEHOLDER -->
+              <h2>Hasil akan muncul di sini</h2>
 
-                <div id="resultPlaceholder"
-                     class="result-placeholder">
-
-                    <div class="result-image-icon">
-                        ▧
-                    </div>
-
-                    <h2>
-                        Hasil akan muncul di sini
-                    </h2>
-
-                    <p>
-                        Upload dan klasifikasi gambar
-                        terlebih dahulu.
-                    </p>
-
-                </div>
-
-
-                <!-- HASIL KLASIFIKASI -->
-
-                <div id="classificationResult"
-                     class="classification-result hidden">
-
-                    <img id="resultImage"
-                         src=""
-                         alt="Gambar hasil klasifikasi"
-                         class="result-preview">
-
-
-                    <div class="prediction-content">
-
-                        <span class="prediction-label">
-                            HASIL GERAKAN
-                        </span>
-
-                        <h2 id="predictionName">
-                            -
-                        </h2>
-
-                        <button type="button"
-                                id="learnButton"
-                                class="btn btn-primary hidden">
-
-                            Pelajari Gerakan
-
-                        </button>
-
-                    </div>
-
-                </div>
-
+              <p>Upload dan klasifikasi gambar terlebih dahulu.</p>
             </div>
 
-        </div>
+            <!-- HASIL KLASIFIKASI -->
 
+            <div id="classificationResult" class="classification-result hidden">
+              <img
+                id="resultImage"
+                src=""
+                alt="Gambar hasil klasifikasi"
+                class="result-preview"
+              />
+
+              <div class="prediction-content">
+                <span class="prediction-label"> HASIL GERAKAN </span>
+
+                <h2 id="predictionName">-</h2>
+
+                <button
+                  type="button"
+                  id="learnButton"
+                  class="btn btn-primary hidden"
+                >
+                  Pelajari Gerakan
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- =================================================
              TUTORIAL PEMBELAJARAN
         ================================================== -->
 
-        <section id="tutorialSection"
-                 class="tutorial-section hidden">
+        <section id="tutorialSection" class="tutorial-section hidden">
+          <div class="tutorial-header">
+            <span class="eyebrow"> PEMBELAJARAN GERAKAN </span>
 
+            <h2 id="tutorialTitle">Tutorial Gerakan</h2>
 
-            <div class="tutorial-header">
+            <p>Pelajari tahapan gerakan secara bertahap.</p>
+          </div>
 
-                <span class="eyebrow">
-                    PEMBELAJARAN GERAKAN
-                </span>
+          <!-- INDIKATOR LANGKAH -->
 
-                <h2 id="tutorialTitle">
-                    Tutorial Gerakan
-                </h2>
+          <div id="stepIndicator" class="step-indicator"></div>
 
-                <p>
-                    Pelajari tahapan gerakan secara bertahap.
-                </p>
+          <!-- KONTEN TUTORIAL -->
 
-            </div>
+          <div id="tutorialContent" class="tutorial-content"></div>
 
+          <!-- NAVIGASI LANGKAH -->
 
-            <!-- INDIKATOR LANGKAH -->
+          <div class="tutorial-navigation">
+            <button type="button" id="previousStep" class="btn btn-secondary">
+              Langkah Sebelumnya
+            </button>
 
-            <div id="stepIndicator"
-                 class="step-indicator">
-            </div>
+            <span id="stepCounter"> Langkah 1 </span>
 
+            <button type="button" id="nextStep" class="btn btn-primary">
+              Langkah Selanjutnya
+            </button>
+          </div>
 
-            <!-- KONTEN TUTORIAL -->
+          <!-- KEMBALI -->
 
-            <div id="tutorialContent"
-                 class="tutorial-content">
-            </div>
-
-
-            <!-- NAVIGASI LANGKAH -->
-
-            <div class="tutorial-navigation">
-
-                <button type="button"
-                        id="previousStep"
-                        class="btn btn-secondary">
-
-                    Langkah Sebelumnya
-
-                </button>
-
-
-                <span id="stepCounter">
-                    Langkah 1
-                </span>
-
-
-                <button type="button"
-                        id="nextStep"
-                        class="btn btn-primary">
-
-                    Langkah Selanjutnya
-
-                </button>
-
-            </div>
-
-
-            <!-- KEMBALI -->
-
-            <div class="tutorial-back">
-
-                <button type="button"
-                        id="backToResult"
-                        class="btn btn-outline">
-
-                    Kembali ke Hasil Klasifikasi
-
-                </button>
-
-            </div>
-
+          <div class="tutorial-back">
+            <button type="button" id="backToResult" class="btn btn-outline">
+              Kembali ke Hasil Klasifikasi
+            </button>
+          </div>
         </section>
+      </div>
+    </section>
 
-    </div>
-
-</section>
-
-
-<!-- =========================================================
+    <!-- =========================================================
      TOMBOL NAVIGASI BAWAH
 ========================================================= -->
 
-<div class="classification-navigation">
+    <div class="classification-navigation">
+      <a href="{{ url_for('index') }}" class="btn-back"> Kembali ke Beranda </a>
 
-    <a href="{{ url_for('index') }}"
-       class="btn-back">
+      <a href="{{ url_for('klasifikasi') }}" class="btn-reset"> Mulai Ulang </a>
+    </div>
 
-        Kembali ke Beranda
-
-    </a>
-
-    <a href="{{ url_for('klasifikasi') }}"
-       class="btn-reset">
-
-        Mulai Ulang
-
-    </a>
-
-</div>
-
-
-<!-- =========================================================
+    <!-- =========================================================
      FOOTER
 ========================================================= -->
 
-<footer class="footer">
+    <footer class="footer">
+      <div class="container">
+        <p>© Website Klasifikasi Gerakan Dasar Tari Yosim Pancar</p>
+      </div>
+    </footer>
 
-    <div class="container">
-
-        <p>
-            © Website Klasifikasi Gerakan Dasar Tari Yosim Pancar
-        </p>
-
-    </div>
-
-</footer>
-
-
-<!-- =========================================================
+    <!-- =========================================================
      JAVASCRIPT
 ========================================================= -->
 
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
-
-</body>
-
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </body>
 </html>

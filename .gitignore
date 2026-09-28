@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.env
+static/uploads/*
+
+# Virtual environment
+.venv/
+.venv_lama/
+
+# VS Code
+.vscode/
+error_app.txt
