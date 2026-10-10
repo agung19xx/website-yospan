@@ -105,6 +105,11 @@ input {
   margin-bottom: 16px;
 }
 
+/* Paragraf deskripsi di halaman Klasifikasi dibuat memanjang penuh */
+.page-header p.deskripsi-lebar {
+  max-width: 100%;
+}
+
 /* ============================================================
    SECTION HEADING
 ============================================================ */
@@ -2371,5 +2376,38 @@ img {
   .nav-menu a {
     padding: 7px 9px;
     font-size: 12px;
+  }
+}
+
+
+/* ============================================================
+   GERAKAN DASAR: 5 kartu, baris bawah (2 kartu) di tengah
+============================================================ */
+
+/* Layar lebar (di atas 900px): 3 kartu di atas, 2 kartu di tengah bawah */
+@media (min-width: 901px) {
+  .movement-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .movement-grid .movement-card {
+    grid-column: span 2;
+  }
+
+  .movement-grid .movement-card:nth-child(4) {
+    grid-column: 2 / span 2;
+  }
+
+  .movement-grid .movement-card:nth-child(5) {
+    grid-column: 4 / span 2;
+  }
+}
+
+/* Tablet (651px sampai 900px): 2 kolom, kartu ke-5 di tengah */
+@media (min-width: 651px) and (max-width: 900px) {
+  .movement-grid .movement-card:nth-child(5) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc(50% - 9px);
   }
 }
