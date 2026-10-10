@@ -27,9 +27,6 @@ import mediapipe as mp
 from mediapipe.tasks import python as mp_python
 from mediapipe.tasks.python import vision as mp_vision
 
-from tensorflow.keras.models import load_model
-
-
 # ============================================================
 # KONFIGURASI FLASK
 # ============================================================
@@ -42,7 +39,7 @@ app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_DIR = os.path.join(BASE_DIR, "model")
 
-MODEL_PATH = os.path.join(MODEL_DIR, "yospan_pose_classifier_final.keras")
+WEIGHTS_PATH = os.path.join(MODEL_DIR, "mlp_weights.npz")
 POSE_TASK_PATH = os.path.join(MODEL_DIR, "pose_landmarker_full.task")
 SCALER_PATH = os.path.join(MODEL_DIR, "pose_scaler.npz")
 LABEL_PATH = os.path.join(MODEL_DIR, "labels.txt")
@@ -63,18 +60,62 @@ NUM_FEATURES = NUM_LANDMARKS * 4  # x, y, z, visibility = 132
 
 
 # ============================================================
-# LOAD MODEL KLASIFIKASI (MLP BERBASIS POSE)
+# MODEL KLASIFIKASI (MLP BERBASIS POSE) - TANPA TENSORFLOW
+#
+# Bobot model Keras diekspor ke mlp_weights.npz, lalu dihitung
+# dengan NumPy. Hasilnya identik dengan Keras, tetapi website
+# jauh lebih ringan karena tidak perlu memasang TensorFlow.
+#
+# Arsitektur: Dense(128,relu) -> BatchNorm -> Dense(64,relu) ->
+#             BatchNorm -> Dense(32,relu) -> Dense(6,softmax)
+# (Dropout hanya aktif saat training, jadi dilewati.)
 # ============================================================
+
+class NumpyMLP:
+    def __init__(self, path):
+        data = np.load(path)
+        self.w = {key: data[key] for key in data.files}
+        self.input_dim = self.w["dense_kernel"].shape[0]
+        self.output_dim = self.w["dense_3_bias"].shape[0]
+
+    def _batch_norm(self, x, name):
+        w = self.w
+        return (
+            w[name + "_gamma"]
+            * (x - w[name + "_mean"])
+            / np.sqrt(w[name + "_var"] + w[name + "_eps"])
+            + w[name + "_beta"]
+        )
+
+    def predict(self, x):
+        w = self.w
+        x = np.asarray(x, dtype=np.float32)
+
+        x = np.maximum(x @ w["dense_kernel"] + w["dense_bias"], 0.0)
+        x = self._batch_norm(x, "batch_normalization")
+
+        x = np.maximum(x @ w["dense_1_kernel"] + w["dense_1_bias"], 0.0)
+        x = self._batch_norm(x, "batch_normalization_1")
+
+        x = np.maximum(x @ w["dense_2_kernel"] + w["dense_2_bias"], 0.0)
+
+        x = x @ w["dense_3_kernel"] + w["dense_3_bias"]
+
+        # softmax
+        x = x - x.max(axis=-1, keepdims=True)
+        e = np.exp(x)
+        return e / e.sum(axis=-1, keepdims=True)
+
 
 print("==============================================")
 print("MEMUAT MODEL KLASIFIKASI POSE YOSPAN")
 print("==============================================")
 
-model = load_model(MODEL_PATH, compile=False)
+model = NumpyMLP(WEIGHTS_PATH)
 
-print("Model berhasil dimuat:", MODEL_PATH)
-print("Input model :", model.input_shape)
-print("Output model:", model.output_shape)
+print("Bobot model dimuat:", WEIGHTS_PATH)
+print("Input model :", model.input_dim)    # 132
+print("Output model:", model.output_dim)   # 6
 
 
 # ============================================================
@@ -87,15 +128,15 @@ if os.path.exists(LABEL_PATH):
 else:
     labels = list(DEFAULT_LABELS)
 
-if model.output_shape[-1] != len(labels):
+if model.output_dim != len(labels):
     raise ValueError(
-        f"Jumlah output model ({model.output_shape[-1]}) "
+        f"Jumlah output model ({model.output_dim}) "
         f"tidak sama dengan jumlah label ({len(labels)})."
     )
 
-if model.input_shape[-1] != NUM_FEATURES:
+if model.input_dim != NUM_FEATURES:
     raise ValueError(
-        f"Input model ({model.input_shape[-1]}) "
+        f"Input model ({model.input_dim}) "
         f"tidak sama dengan jumlah fitur pose ({NUM_FEATURES})."
     )
 
@@ -311,7 +352,7 @@ def predict_pose(image_bytes, pil_image):
     if features is None:
         return None
 
-    prediction = model.predict(features, verbose=0)
+    prediction = model.predict(features)
 
     predicted_index = int(np.argmax(prediction[0]))
     predicted_label = labels[predicted_index]
