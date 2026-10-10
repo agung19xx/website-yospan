@@ -99,6 +99,12 @@ input {
   margin-bottom: 12px;
 }
 
+/* Judul kecil "KLASIFIKASI GERAKAN" dibuat lebih besar */
+.eyebrow.eyebrow-besar {
+  font-size: 20px;
+  letter-spacing: 3px;
+}
+
 /* ============================================================
    SECTION HEADING
 ============================================================ */
