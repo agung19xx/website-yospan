@@ -1,12 +1,19 @@
+import base64
+import io
 import os
-import numpy as np
+import tempfile
+import threading
 
-from flask import Flask, render_template, request, jsonify, url_for
-from werkzeug.utils import secure_filename
+import numpy as np
+from PIL import Image
+
+from flask import Flask, render_template, request, jsonify
+
+import mediapipe as mp
+from mediapipe.tasks import python as mp_python
+from mediapipe.tasks.python import vision as mp_vision
 
 from tensorflow.keras.models import load_model
-from tensorflow.keras.utils import load_img, img_to_array
-from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 
 
 # ============================================================
@@ -15,46 +22,45 @@ from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 
 app = Flask(__name__)
 
+# Batas ukuran unggahan: 10 MB
+app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_DIR = os.path.join(BASE_DIR, "model")
 
-MODEL_PATH = os.path.join(
-    BASE_DIR,
-    "model",
-    "mobilenetv2_yospan_best.keras"
-)
+MODEL_PATH = os.path.join(MODEL_DIR, "yospan_pose_classifier_final.keras")
+POSE_TASK_PATH = os.path.join(MODEL_DIR, "pose_landmarker_full.task")
+SCALER_PATH = os.path.join(MODEL_DIR, "pose_scaler.npz")
+LABEL_PATH = os.path.join(MODEL_DIR, "labels.txt")
 
-LABEL_PATH = os.path.join(
-    BASE_DIR,
-    "model",
-    "labels.txt"
-)
+# Urutan kelas HARUS sama dengan LabelEncoder saat training
+# (urutan alfabet). Dipakai jika labels.txt tidak ditemukan.
+DEFAULT_LABELS = [
+    "bukan_yospan",
+    "gale_gale",
+    "jef",
+    "pacul_tiga",
+    "pancar",
+    "seka",
+]
 
-UPLOAD_FOLDER = os.path.join(
-    BASE_DIR,
-    "static",
-    "uploads"
-)
-
-app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
-
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+NUM_LANDMARKS = 33
+NUM_FEATURES = NUM_LANDMARKS * 4  # x, y, z, visibility = 132
 
 
 # ============================================================
-# LOAD MODEL MOBILENETV2
+# LOAD MODEL KLASIFIKASI (MLP BERBASIS POSE)
 # ============================================================
 
 print("==============================================")
-print("MEMUAT MODEL MOBILENETV2 YOSPAN")
+print("MEMUAT MODEL KLASIFIKASI POSE YOSPAN")
 print("==============================================")
 
-model = load_model(
-    MODEL_PATH,
-    compile=False
-)
+model = load_model(MODEL_PATH, compile=False)
 
-print("Model berhasil dimuat.")
-print("Model:", MODEL_PATH)
+print("Model berhasil dimuat:", MODEL_PATH)
+print("Input model :", model.input_shape)
+print("Output model:", model.output_shape)
 
 
 # ============================================================
@@ -62,29 +68,64 @@ print("Model:", MODEL_PATH)
 # ============================================================
 
 if os.path.exists(LABEL_PATH):
-
     with open(LABEL_PATH, "r", encoding="utf-8") as file:
-        labels = [
-            line.strip()
-            for line in file
-            if line.strip()
-        ]
-
+        labels = [line.strip() for line in file if line.strip()]
 else:
+    labels = list(DEFAULT_LABELS)
 
-    labels = [
-        "bukan_yospan",
-        "gale_gale",
-        "jef",
-        "pacul_tiga",
-        "pancar",
-        "seka"
-    ]
+if model.output_shape[-1] != len(labels):
+    raise ValueError(
+        f"Jumlah output model ({model.output_shape[-1]}) "
+        f"tidak sama dengan jumlah label ({len(labels)})."
+    )
 
-print()
+if model.input_shape[-1] != NUM_FEATURES:
+    raise ValueError(
+        f"Input model ({model.input_shape[-1]}) "
+        f"tidak sama dengan jumlah fitur pose ({NUM_FEATURES})."
+    )
+
 print("Label:", labels)
-print("Jumlah kelas:", len(labels))
 
+
+# ============================================================
+# LOAD STANDARD SCALER (hasil training)
+#
+# Disimpan sebagai mean & scale dari StandardScaler agar tidak
+# bergantung pada versi scikit-learn.
+# Rumus: (x - mean) / scale
+# ============================================================
+
+_scaler = np.load(SCALER_PATH)
+SCALER_MEAN = _scaler["mean"].astype(np.float32)
+SCALER_SCALE = _scaler["scale"].astype(np.float32)
+
+if SCALER_MEAN.shape[0] != NUM_FEATURES:
+    raise ValueError("Ukuran scaler tidak sesuai dengan jumlah fitur.")
+
+
+# ============================================================
+# MEDIAPIPE POSE LANDMARKER
+#
+# Pengaturan SAMA dengan saat ekstraksi fitur di notebook
+# training (Cell 5): num_poses=1, confidence 0.5, mode IMAGE.
+# ============================================================
+
+pose_options = mp_vision.PoseLandmarkerOptions(
+    base_options=mp_python.BaseOptions(model_asset_path=POSE_TASK_PATH),
+    running_mode=mp_vision.RunningMode.IMAGE,
+    num_poses=1,
+    min_pose_detection_confidence=0.5,
+    min_pose_presence_confidence=0.5,
+    min_tracking_confidence=0.5,
+)
+
+pose_detector = mp_vision.PoseLandmarker.create_from_options(pose_options)
+
+# Detector dipakai bersama oleh semua request, jadi diberi lock.
+pose_lock = threading.Lock()
+
+print("MediaPipe Pose Landmarker siap.")
 print("==============================================")
 print("MODEL SIAP DIGUNAKAN")
 print("==============================================")
@@ -109,164 +150,180 @@ DISPLAY_NAMES = {
 
     "pancar": "Pancar",
 
-    "seka": "Seka"
+    "seka": "Seka",
 }
 
 
-# ============================================================
-# FUNGSI MENGUBAH LABEL MENJADI NAMA YANG RAPI
-# ============================================================
-
 def format_label(label):
-
     key = label.strip().lower()
-
-    return DISPLAY_NAMES.get(
-        key,
-        label.replace("_", " ").title()
-    )
+    return DISPLAY_NAMES.get(key, label.replace("_", " ").title())
 
 
 # ============================================================
-# FUNGSI PREPROCESSING GAMBAR
+# NORMALISASI POSE
 #
-# SESUAI DENGAN MODEL MOBILENETV2
-#
-# Input:
-#   gambar
-#
-# Proses:
-#   1. Resize menjadi 224 x 224
-#   2. Ubah menjadi array
-#   3. Tambahkan batch dimension
-#   4. preprocess_input MobileNetV2
-#
-# Output:
-#   Array dengan bentuk (1, 224, 224, 3)
+# SAMA PERSIS dengan fungsi normalize_pose() di notebook
+# training (Cell 5):
+#   1. Titik pusat = rata-rata (pusat bahu, pusat pinggul)
+#   2. x, y, z dikurangi titik pusat
+#   3. x, y, z dibagi jarak antar bahu
+#   4. visibility tidak diubah
 # ============================================================
 
-def preprocess_image(filepath):
-
-    # --------------------------------------------------------
-    # Baca gambar dan resize menjadi 224 x 224
-    # --------------------------------------------------------
-
-    image = load_img(
-        filepath,
-        target_size=(224, 224)
+def normalize_pose(landmarks):
+    points = np.array(
+        [[lm.x, lm.y, lm.z, lm.visibility] for lm in landmarks],
+        dtype=np.float32,
     )
 
-    # --------------------------------------------------------
-    # Ubah gambar menjadi NumPy array
-    # --------------------------------------------------------
+    shoulder_center = (points[11, :3] + points[12, :3]) / 2.0
+    hip_center = (points[23, :3] + points[24, :3]) / 2.0
+    body_center = (shoulder_center + hip_center) / 2.0
 
-    image_array = img_to_array(
-        image
-    )
+    points[:, :3] -= body_center
 
-    # --------------------------------------------------------
-    # Tambahkan dimensi batch
-    #
-    # Dari:
-    #   (224, 224, 3)
-    #
-    # Menjadi:
-    #   (1, 224, 224, 3)
-    # --------------------------------------------------------
+    shoulder_distance = np.linalg.norm(points[11, :3] - points[12, :3])
 
-    image_array = np.expand_dims(
-        image_array,
-        axis=0
-    )
+    if shoulder_distance < 1e-6:
+        shoulder_distance = 1.0
 
-    # --------------------------------------------------------
-    # Preprocessing khusus MobileNetV2
-    # --------------------------------------------------------
+    points[:, :3] /= shoulder_distance
 
-    image_array = preprocess_input(
-        image_array
-    )
+    return points
 
-    return image_array
+
+# ============================================================
+# MEMBUKA GAMBAR UNTUK MEDIAPIPE
+#
+# Saat training, gambar dibaca dengan mp.Image.create_from_file().
+# Decoder JPEG/PNG MediaPipe sedikit berbeda dari PIL (selisih
+# piksel kecil), dan landmark sangat sensitif terhadap itu.
+# Maka gambar di sini dibaca dengan cara yang SAMA seperti training.
+#
+# PIL hanya dipakai untuk:
+#   - membaca orientasi EXIF (foto kamera ponsel)
+#   - cadangan jika format tidak didukung decoder MediaPipe
+# ============================================================
+
+EXIF_TRANSPOSE = {
+    2: Image.Transpose.FLIP_LEFT_RIGHT,
+    3: Image.Transpose.ROTATE_180,
+    4: Image.Transpose.FLIP_TOP_BOTTOM,
+    5: Image.Transpose.TRANSPOSE,
+    6: Image.Transpose.ROTATE_270,
+    7: Image.Transpose.TRANSVERSE,
+    8: Image.Transpose.ROTATE_90,
+}
+
+
+def to_mediapipe_image(image_bytes, pil_image):
+    orientation = pil_image.getexif().get(0x0112, 1)
+
+    mp_image = None
+    suffix = ".png" if pil_image.format == "PNG" else ".jpg"
+
+    try:
+        with tempfile.NamedTemporaryFile(
+            delete=False, suffix=suffix
+        ) as temp_file:
+            temp_path = temp_file.name
+            temp_file.write(image_bytes)
+
+        try:
+            mp_image = mp.Image.create_from_file(temp_path)
+        finally:
+            try:
+                os.remove(temp_path)
+            except Exception:
+                pass
+    except Exception:
+        mp_image = None
+
+    # Gambar normal (tanpa rotasi EXIF) dan berhasil dibaca MediaPipe
+    if mp_image is not None and orientation not in EXIF_TRANSPOSE:
+        return mp_image
+
+    # Ada rotasi EXIF, atau format tidak didukung decoder MediaPipe
+    if mp_image is not None:
+        rgb = np.array(mp_image.numpy_view())[..., :3]
+        pil_rgb = Image.fromarray(np.ascontiguousarray(rgb, dtype=np.uint8))
+    else:
+        pil_rgb = pil_image.convert("RGB")
+
+    if orientation in EXIF_TRANSPOSE:
+        pil_rgb = pil_rgb.transpose(EXIF_TRANSPOSE[orientation])
+
+    rgb = np.ascontiguousarray(np.array(pil_rgb, dtype=np.uint8))
+
+    return mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)
+
+
+# ============================================================
+# EKSTRAKSI FITUR DARI GAMBAR
+#
+# Return: array (1, 132) yang sudah distandardisasi,
+#         atau None jika pose tidak terdeteksi.
+# ============================================================
+
+def extract_features(image_bytes, pil_image):
+    mp_image = to_mediapipe_image(image_bytes, pil_image)
+
+    with pose_lock:
+        result = pose_detector.detect(mp_image)
+
+    if len(result.pose_landmarks) == 0:
+        return None
+
+    landmarks = result.pose_landmarks[0]
+
+    if len(landmarks) != NUM_LANDMARKS:
+        return None
+
+    features = normalize_pose(landmarks).flatten().astype(np.float32)
+
+    # StandardScaler
+    features = (features - SCALER_MEAN) / SCALER_SCALE
+
+    return np.expand_dims(features, axis=0)
 
 
 # ============================================================
 # FUNGSI PREDIKSI
 # ============================================================
 
-def predict_image(image_path):
-    # Load gambar
-    image = load_img(image_path, target_size=(224, 224))
+def predict_pose(image_bytes, pil_image):
+    features = extract_features(image_bytes, pil_image)
 
-    # Convert ke array
-    image_array = img_to_array(image)
+    if features is None:
+        return None
 
-    # Tambahkan batch dimension
-    image_array = np.expand_dims(image_array, axis=0)
+    prediction = model.predict(features, verbose=0)
 
-    # Preprocessing MobileNetV2
-    image_array = preprocess_input(image_array)
-
-    # Prediksi
-    prediction = model.predict(image_array, verbose=0)
-
-    # Validasi jumlah output model
-    if prediction.shape[1] != len(labels):
-        raise ValueError(
-            f"Jumlah output model ({prediction.shape[1]}) "
-            f"tidak sama dengan jumlah labels ({len(labels)})"
-        )
-
-    # Ambil index dengan probabilitas tertinggi
-    predicted_index = np.argmax(prediction[0])
-
-    # Ambil label
+    predicted_index = int(np.argmax(prediction[0]))
     predicted_label = labels[predicted_index]
-
-    # Confidence
     confidence = float(prediction[0][predicted_index])
-
-    # Tentukan apakah Yospan
     is_yospan = predicted_label != "bukan_yospan"
 
-    # WAJIB hanya mengembalikan 3 nilai
     return predicted_label, confidence, is_yospan
 
 
 # ============================================================
-# HALAMAN BERANDA
+# HALAMAN
 # ============================================================
 
 @app.route("/")
 def index():
+    return render_template("index.html")
 
-    return render_template(
-        "index.html"
-    )
-
-
-# ============================================================
-# HALAMAN TENTANG
-# ============================================================
 
 @app.route("/tentang")
 def tentang():
+    return render_template("tentang.html")
 
-    return render_template(
-        "tentang.html"
-    )
-
-
-# ============================================================
-# HALAMAN KLASIFIKASI
-# ============================================================
 
 @app.route("/klasifikasi")
 def klasifikasi():
-
-    return render_template(
-        "klasifikasi.html"
-    )
+    return render_template("klasifikasi.html")
 
 
 # ============================================================
@@ -290,46 +347,38 @@ def predict():
                 "message": "Tidak ada gambar yang dipilih."
             }), 400
 
-        # Simpan sementara di /tmp karena Vercel hanya mengizinkan
-        # penulisan pada direktori temporary
-        import tempfile
+        image_bytes = file.read()
 
-        suffix = os.path.splitext(file.filename)[1] or ".jpg"
-
-        with tempfile.NamedTemporaryFile(
-            delete=False,
-            suffix=suffix,
-            dir="/tmp"
-        ) as temp_file:
-
-            temp_path = temp_file.name
-            file.save(temp_path)
-
-        # Prediksi
-        predicted_label, confidence, is_yospan = predict_image(temp_path)
-
-        # Baca kembali gambar untuk dikirim ke frontend
-        import base64
-
-        with open(temp_path, "rb") as image_file:
-            image_base64 = base64.b64encode(
-                image_file.read()
-            ).decode("utf-8")
-
-        # Hapus file sementara
         try:
-            os.remove(temp_path)
+            pil_image = Image.open(io.BytesIO(image_bytes))
+            pil_image.load()
         except Exception:
-            pass
+            return jsonify({
+                "success": False,
+                "message": "File tidak dapat dibaca sebagai gambar. "
+                           "Gunakan format JPG atau PNG."
+            }), 400
 
-        # Tentukan MIME type
+        result = predict_pose(image_bytes, pil_image)
+
+        if result is None:
+            return jsonify({
+                "success": False,
+                "message": "Pose tubuh tidak terdeteksi pada gambar. "
+                           "Gunakan foto yang menampilkan satu orang "
+                           "dengan seluruh tubuh terlihat jelas."
+            }), 422
+
+        predicted_label, confidence, is_yospan = result
+
         mime_type = file.mimetype or "image/jpeg"
+        image_base64 = base64.b64encode(image_bytes).decode("utf-8")
 
         return jsonify({
             "success": True,
             "status": "success",
             "label": format_label(predicted_label),
-            "confidence": float(confidence),
+            "confidence": confidence,
             "is_yospan": is_yospan,
             "image": f"data:{mime_type};base64,{image_base64}"
         })
@@ -339,8 +388,16 @@ def predict():
 
         return jsonify({
             "success": False,
-            "message": str(e)
+            "message": "Terjadi kesalahan saat memproses gambar."
         }), 500
+
+
+@app.errorhandler(413)
+def file_too_large(_error):
+    return jsonify({
+        "success": False,
+        "message": "Ukuran gambar terlalu besar. Maksimal 10 MB."
+    }), 413
 
 
 # ============================================================
@@ -348,7 +405,6 @@ def predict():
 # ============================================================
 
 if __name__ == "__main__":
-
     app.run(
         host="127.0.0.1",
         port=5000,

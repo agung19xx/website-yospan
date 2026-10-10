@@ -3,5 +3,7 @@ Werkzeug==3.0.6
 numpy==1.26.4
 tensorflow==2.20.0
 keras==3.13.2
+mediapipe==0.10.33
+opencv-contrib-python==4.11.0.86
 Pillow==10.4.0
 gunicorn
