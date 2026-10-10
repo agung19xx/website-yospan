@@ -1,13 +1,27 @@
 import base64
 import io
 import os
+import sys
 import tempfile
 import threading
+import types
 
 import numpy as np
 from PIL import Image
 
 from flask import Flask, render_template, request, jsonify
+
+# ------------------------------------------------------------
+# Perbaikan untuk Vercel / server tanpa pustaka grafis:
+# `import mediapipe` otomatis mengimpor OpenCV (cv2), dan cv2 butuh
+# libGL.so.1 yang tidak ada di Vercel. Kita tidak memakai fitur
+# OpenCV, jadi jika gagal diimpor cukup diganti modul kosong.
+# (Di komputer sendiri cv2 normal, jadi tidak ada yang berubah.)
+# ------------------------------------------------------------
+try:
+    import cv2  # noqa: F401
+except ImportError:
+    sys.modules["cv2"] = types.ModuleType("cv2")
 
 import mediapipe as mp
 from mediapipe.tasks import python as mp_python
